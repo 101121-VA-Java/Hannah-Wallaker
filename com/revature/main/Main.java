@@ -1,3 +1,7 @@
+package com.revature.main;
+
+    import com.revature.clothing.Shirt;
+
 public class Main{
     public static void main (String[] args){
         //auto generated method here

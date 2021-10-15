@@ -1,3 +1,5 @@
+package com.revature.clothing;
+
 public class Shirt{
 
 public static String color;
