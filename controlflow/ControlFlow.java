@@ -111,9 +111,20 @@ public class ControlFlow{
     This method should return the same array of integer ordered from least to most.
     */
     public static int[] orderArr(int[] intArr){
-        
-        // logic
-
-        return new int[5];
+        int[] arrayMath = new int[intArr.length];
+        for(int i=0; i < intArr.length; i++){
+            arrayMath[i] = intArr[i];
+        }
+        for(int i=0; i < intArr.length; i++){
+            for(int j= i +1; j< intArr.length; j++){
+                if(intArr[i] > intArr[j]){
+                    arrayMath[i]=intArr[j];
+                    arrayMath[j]=intArr[i];
+                }
+            }
+        }
+        return arrayMath;
     }
+    
+        
 }
