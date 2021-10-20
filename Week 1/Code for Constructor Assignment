@@ -1,0 +1,54 @@
+public class Main{
+    public static void main (String[] args){
+        //auto generated method here
+
+    System.out.println("Fashion-forward Kanye West is ");
+        Shirt s = new Shirt("It is Polka Dotted", 'S');
+        s.wear();
+
+    
+
+        System.out.println(s.color);
+        System.out.println(s.size);
+
+
+    }
+}
+
+
+//Here is my other subfile I used to construct:
+
+public class Shirt{
+
+public static String color;
+public static char size;
+
+
+Shirt(String newColor, char newSize ){
+    color = newColor;
+    size = newSize;
+}
+
+
+Shirt() {
+    System.out.println("Fashion-forward celebrity Kanye West is ");
+}
+
+    public static void wear() {
+        System.out.println("wearing the shirt.");
+
+    }
+
+    public static void notwear() {
+        System.out.println("shirtless");
+    }
+    
+    public static void setColor(String newColor){
+        color = newColor;
+    }
+
+    public static void setSize(char newSize){
+        size = newSize;
+    }
+
+}
