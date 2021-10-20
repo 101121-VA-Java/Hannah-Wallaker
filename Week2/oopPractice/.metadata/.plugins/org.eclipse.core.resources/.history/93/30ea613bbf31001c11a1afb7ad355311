@@ -1,0 +1,20 @@
+package com.revature.models;
+
+import java.time.LocalDate;
+
+public class BoringTask extends Task {
+	
+	public void Procrastinate(){
+		this.setDueDate(this.getDueDate().plusDays(1));
+	}
+
+	public BoringTask() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public BoringTask(String name, LocalDate dueDate) {
+		super(name, dueDate);
+		// TODO Auto-generated constructor stub
+	}
+
+}
