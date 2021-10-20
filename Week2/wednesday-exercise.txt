@@ -1,0 +1,17 @@
+Go line by line, and explain what's happening in each line.
+
+int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80;
+
+String result; // This is assigning "result" to be a string so it can be an array of characters.
+
+// if/else statements determine if a code will run based on the condition provided
+
+if (score == 80) {
+	result = "You passed!"; // This returns a boolean result. It checks to make sure "score" equals 80 and 80 equals "score" as stored in the heap. 
+} else if (score > 80) {
+	result = "You did great!";// This says if the int of score is more than 80, it will return a different result because you performed above and beyond.
+} else {
+	result = "You did not pass. Try again!";// This covers every int of score below 80 and lets the user know they did not pass. 
+}
+
+System.out.println(result); // for every "result =" listed, it will print out the phrase assigned according to their statement.
