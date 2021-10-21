@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+C:\Users\hanwa\Documents\new-java-practice\github\hannah-wallaker\Week2\oopPractice\.metadata\.plugins\org.eclipse.jdt.core
-2593608388.index
-488489112.index
