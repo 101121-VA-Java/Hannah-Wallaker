@@ -1,0 +1,24 @@
+public class Food { // declares a new public class names Food
+	public String name; // declares a public String of name. Public is our access modifier and String is our variable.
+	public String type; // declares a public String of type
+
+	public Food(String name, String type) { // This is our method for Food that has parameters of our established strings name and type
+		this.name = name; // the declared name in the Food class is assigned to the string name passed in
+		this.type = type; // the declared type in the Food class is assigned to the string type passed in
+	}
+
+	public void cook() { // New method that is public with no return type named cook with empty parameters.
+		if (!name.contains("cooked")) { // if statement for if the name does not contain "cooked" in the string
+			name = "cooked " + name; // assigns the string name to include "cooked" in front of the name if it doesn't have it
+		}
+	}
+}
+
+public class Main { // New class with public access. This is our main class.
+	public static void main(String[] args) { // This is our main method- public access, static so it is associated with class, void so no return type, and then it has the parameters of being a String Array
+		Food myFood = new Food("potato", "vegetable"); // Declares an instance of the Food class as a new food with the name "potatoes" and the type "vegetables"
+		myFood.cook();// This will invoke the cook method to add "cooked" in front of the name
+
+		System.out.println(myFood.name); // will print "cooked potato"
+	}
+}

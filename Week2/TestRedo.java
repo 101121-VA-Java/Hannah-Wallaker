@@ -18,24 +18,21 @@ public class TestRedo
 
 public static String getVowel(String s) {
 
-    String vowels = s;
+    String vowels = ""; // String Passed is dog
 
 
      for (int i = 0; i < s.length(); i++){
         if (s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u'){
-            System.out.println (" " + s.charAt(i));
+            vowels = vowels + s.charAt(i);
         }
-            }
+            }return vowels;
 
-       if (s == " "){
-           return s;
-       }else{
-           return null;
+        
        }
         
     
 }
-}
+
 
 
 /* 
