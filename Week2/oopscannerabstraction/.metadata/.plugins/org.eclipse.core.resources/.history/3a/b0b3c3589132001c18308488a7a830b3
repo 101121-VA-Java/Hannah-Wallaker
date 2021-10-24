@@ -1,0 +1,88 @@
+package com.revature.driver;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+
+//import com.revature.models.Task;
+//import com.revature.models.ImportantTask;
+//import com.revature.models.BoringTask;
+//import com.revature.models.UnimportantTask;
+//import com.revature.models.User;
+import com.revature.models.*;
+
+public class Driver {
+
+	static Scanner sc = new Scanner(System.in) {
+	public void loginScreen() {
+		
+		String uname = "Hannah";
+		String pass = "password";
+		
+		System.out.println("Hello! Please enter your username");
+		String username = sc.nextLine();
+		
+		System.out.printnln("Please enter your password");
+		String password = sc.nextLine();
+		
+		if(uname.equals(username) && pass.equals(password)) {
+			System.out.println("Welcome!");
+		}else {
+			System.out.println("Invalid entry");
+		}
+		
+		sc.close();
+	}
+	}
+	
+
+		
+	private static Scanner sc2 = new Scanner(System.in) {
+	public void taskList() {
+
+		Task t1 = new Task("Grocery Shopping", LocalDate.now().plusDays(7));
+		Task t2 = new Task("Vacuum", LocalDate.now().plusDays(1));
+		Task t3 = new BoringTask("Clean out closet");
+		Task t4 = new ImportantTask("Programming Homework", LocalDate.now());
+		Task t5 = new DailyTask("Do dishes");
+
+
+		Task[] tasks = {t1,t2,t3,t4,t5};
+
+		System.out.println("Hello! Enter your username to check your tasks.");
+		String yn = sc.nextLine();
+		while(yn.equals(uname)) {
+			System.out.println("Rate Task Importance ( normal, important, boring, or daily): ");
+			String choice = sc.nextLine();
+
+			switch(choice) {
+		
+			case "normal":
+				System.out.println("Task Name: " + t1);
+				break;
+			
+			case "important":
+				System.out.println("Task Name: " + t4);
+				break;
+			
+			case "boring":
+				System.out.println("Task Name: " + t3);
+				break;
+			
+			case "daily":
+				System.out.println("Task Name: " + t5);
+				break;
+			
+			default:
+				System.out.println("Invalid Choice");
+				break;
+
+			}
+			
+			System.out.println("Type 'next' to see next tasks: ");
+			yn = sc.nextLine();
+		}
+
+
+	}
+}
+}
