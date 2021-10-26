@@ -67,4 +67,3 @@ public class UserArray implements UserDao {
 	}
 }
 	
-}

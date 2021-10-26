@@ -12,8 +12,11 @@ public class User {
 	private User manager;
 	
 	
-	public User() {
+	public User(String name, String username, String password) {
 		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
 		// TODO Auto-generated constructor stub
 	}
 
