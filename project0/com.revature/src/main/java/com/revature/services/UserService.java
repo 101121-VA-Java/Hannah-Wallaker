@@ -11,8 +11,15 @@ public class UserService {
 	
 	public int addUser(User u) {
 		/*
-		 * add business logic here to manipulate e before storage
+		 * add business logic here to manipulate e before storage 
+		 * (Done 10.26 u will be our basic user, customer)
+		 * 
+		 * When a user registers, we will collect their name, username, and password
+		 * System should assign role Employee and Manager
+		 * 
 		 */
+		
+		u.setRole(Role.CUSTOMER);
 		return ud.addUser(u);
 	}
 	
