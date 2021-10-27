@@ -24,7 +24,7 @@ public class UserController {
 		public void registerUser(Scanner scan) {
 			System.out.println("Welcome! Please enter a username: ");
 			String username = scan.nextLine();
-			System.out.println("Great! Please also enter a password: ");
+			System.out.println("Great! Nice to meet you, " + username + "! Please also enter a password: ");
 			String password = scan.nextLine();
 			System.out.println("Registered! Please enter your first name to complete: ");
 			String name = scan.nextLine();
