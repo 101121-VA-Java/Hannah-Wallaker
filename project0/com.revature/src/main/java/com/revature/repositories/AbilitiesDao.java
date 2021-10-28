@@ -1,5 +1,5 @@
 package com.revature.repositories;
 
-public interface AbilitiesDao extends GenericDao<U> {
+public interface AbilitiesDao<U> extends GenericDao<U> {
 
 }

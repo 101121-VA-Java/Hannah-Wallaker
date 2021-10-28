@@ -17,7 +17,6 @@ public class UserList implements UserDao{
 	}
 
 	@Override
-	@Override
 	public User add(User u) {
 		//generates user id
 		u.setId(users.size());
@@ -60,6 +59,12 @@ public class UserList implements UserDao{
 	public boolean remove(User u) {
 		//add later
 		return false;
+	}
+
+	@Override
+	public int addUser(User u) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
