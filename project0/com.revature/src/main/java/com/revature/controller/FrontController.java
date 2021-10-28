@@ -6,6 +6,7 @@ public class FrontController {
 	
 	private Scanner sc;
 	private UserController uc;
+	private CustomerOptions co; 
 	
 	public FrontController() {
 		sc = new Scanner(System.in);
@@ -30,7 +31,9 @@ public class FrontController {
 				//TODO... if a user is not registered, display an error message
 				break;
 			case "2":
-				//TODO... Will add method for Login here!
+				uc.loginExisting(sc);
+				co.customerOptions(sc);
+				//TODO... temporary login method until I can add and keep users
 				break;
 			case "3":
 				System.out.println("Hope to see you again soon!");
