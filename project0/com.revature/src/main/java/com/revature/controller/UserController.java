@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.io.File;
 import java.util.Scanner;
 
 import com.revature.exceptions.*;
@@ -9,20 +8,13 @@ import com.revature.services.UserService;
 
 public class UserController {
 
-	private UserService us = new UserService();
+	private static UserService us = new UserService();
+	private static User customer;
+	private static Scanner scan;
 
-	public void searchForUser() {
-		// scanner getting user input
-		try {
-			User u = us.getUserById(0);
-		} catch (UserNotFoundException e) {
-			System.out.println("User doesn't exist.");
-			e.printStackTrace();
-		}
+	
 
-	}
-
-	public void registerUser(Scanner scan) {
+	public static void registerUser(Scanner scan) {
 		System.out.println("Welcome! Please enter a username: ");
 		String username = scan.nextLine();
 		System.out.println("Great! Nice to meet you, " + username + "! Please also enter a password: ");
@@ -31,41 +23,57 @@ public class UserController {
 		String name = scan.nextLine();
 
 		User newUser = new User(name, username, password);
+		
+		try {
+			newUser = us.addUser(newUser);
+			System.out.println("Welcome to our family! " + newUser.getName());
+		} catch  (UsernameAlreadyActiveException e) {
+			System.out.println("Username is already taken. Please try again!");
+		}
+		
+	//	us.addUser(newUser);
 
-		// TODO check whether a user was created or not
-		us.addUser(newUser);
-
-		System.out.println("All set. User has been added.");
+	// 	System.out.println("All set. User has been added.");
 	}
 
-	public void loginExisting(Scanner login) {
-		String uname;
-		String pword;
-
-		pword = "123456";
-		uname = "hannah";
-
-		Scanner input1 = new Scanner(System.in);
-		System.out.println("Enter Username : ");
-		String username = input1.next();
-
-		Scanner input2 = new Scanner(System.in);
-		System.out.println("Enter Password : ");
-		String password = input2.next();
-
-		if (username.equals(uname) && password.equals(pword)) {
-
-			System.out.println("Access Granted! Welcome!");
+	public void loginSystem(Scanner login) {
+		scan = login;
+		
+		System.out.println("Glad to see you back! Please enter your username!");
+		String username = scan.nextLine();
+		System.out.println("And please also enter your password:");
+		String password = scan.nextLine();
+		System.out.println("Enter your name and you're good to go!");
+		String name = scan.nextLine();
+		
+		try {
+			customer = us.loginSystem(username, password, name);
+			
+		}catch (LoginException e) {
+			System.out.println("Sorry, we don't recognize you, try again?");
 		}
+		
+		
+		
+	}
 
-		else if (username.equals(uname)) {
-			System.out.println("Invalid Password!");
-		} else if (password.equals(pword)) {
-			System.out.println("Invalid Username!");
-		} else {
-			System.out.println("Invalid Username & Password!");
+		
+	
+	
+/*	public void searchForUser() {
+		// scanner getting user input
+		try {
+			User u = us.getByUsername(null);
+		} catch (UserNotFoundException e) {
+			System.out.println("User doesn't exist.");
+			e.printStackTrace();
 		}
 
 	}
-
+*/
+	
+	
+	
+	
+	
 }

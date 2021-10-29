@@ -13,6 +13,8 @@ public class UserList implements UserDao{
 		users = new ArrayList<>();
 		//
 		//
+		User Owner = new User (0, "wallaker", "wallaker", "wallaker", Role.OWNER, null, null, null);
+		users.add(Owner);
 		
 	}
 
@@ -62,9 +64,9 @@ public class UserList implements UserDao{
 	}
 
 	@Override
-	public int addUser(User u) {
+	public User addUser(User u) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 	
 	

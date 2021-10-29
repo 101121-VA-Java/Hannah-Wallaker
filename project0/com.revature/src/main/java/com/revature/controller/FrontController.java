@@ -27,11 +27,11 @@ public class FrontController {
 			
 			switch(choice) {
 			case "1":
-				uc.registerUser(sc);
+				UserController.registerUser(sc);
 				//TODO... if a user is not registered, display an error message
 				break;
 			case "2":
-				uc.loginExisting(sc);
+				uc.loginSystem(sc);
 				co.customerOptions(sc);
 				//TODO... temporary login method until I can add and keep users
 				break;
