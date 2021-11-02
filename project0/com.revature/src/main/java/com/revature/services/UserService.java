@@ -1,12 +1,12 @@
 package com.revature.services;
 
 import java.util.List;
-
 import com.revature.exceptions.*;
 import com.revature.models.*;
 import com.revature.repositories.*;
+import com.revature.services.*;
 
-public class UserService {
+public class UserService extends UserList {
 
 	private UserDao ud;
 
@@ -29,19 +29,19 @@ public class UserService {
 		u.setRole(Role.CUSTOMER);
 		u.setManager(ud.getById(0));
 
-		return ud.addUser(u);
+		return ud.add(u);
 	}
 
-	public User getByUsername(String username) {
+	/*public User getByUsername(String username) {
 		List<User> users = ud.getAll();
 		for (User u : users) {
 			if (u.getUsername().equals(username)) {
 				return u;
 			}
 		}
-		return null;
 
 	}
+	*/
 	
 	public User loginSystem(String username, String password, String name) throws LoginException {
 		User u = this.getByUsername(username);

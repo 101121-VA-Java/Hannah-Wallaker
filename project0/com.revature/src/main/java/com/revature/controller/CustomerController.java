@@ -2,7 +2,7 @@ package com.revature.controller;
 
 import java.util.Scanner;
 
-public class CustomerOptions {
+public class CustomerController {
 
 	public void customerOptions(Scanner scan) {
 

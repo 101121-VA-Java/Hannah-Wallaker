@@ -9,7 +9,6 @@ import com.revature.services.UserService;
 public class UserController {
 
 	private static UserService us = new UserService();
-	private static User customer;
 	private static Scanner scan;
 
 	
@@ -47,7 +46,7 @@ public class UserController {
 		String name = scan.nextLine();
 		
 		try {
-			customer = us.loginSystem(username, password, name);
+			us.loginSystem(username, password, name);
 			
 		}catch (LoginException e) {
 			System.out.println("Sorry, we don't recognize you, try again?");

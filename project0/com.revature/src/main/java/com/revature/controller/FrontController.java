@@ -6,7 +6,7 @@ public class FrontController {
 	
 	private Scanner sc;
 	private UserController uc;
-	private CustomerOptions co; 
+	private CustomerController co; 
 	
 	public FrontController() {
 		sc = new Scanner(System.in);
