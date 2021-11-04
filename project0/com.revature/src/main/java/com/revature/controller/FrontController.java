@@ -17,7 +17,7 @@ public class FrontController {
 		boolean execute = true;
 		
 		while(execute) {
-			System.out.println("Welcome to Wallaker's Bookmine! Please select an option from our menu: ");
+			System.out.println("Welcome to CycleSquad! Please select an option from our menu to get ready to ride: ");
 			System.out.println("1. Register for an account with us");
 			System.out.println("2. Login to an existing account");
 			System.out.println("3. Exit the application");
@@ -28,11 +28,10 @@ public class FrontController {
 			switch(choice) {
 			case "1":
 				UserController.registerUser(sc);
-				//TODO... if a user is not registered, display an error message
 				break;
 			case "2":
 				uc.loginSystem(sc);
-				co.customerOptions(sc);
+				//co.customerOptions(sc);
 				//TODO... temporary login method until I can add and keep users
 				break;
 			case "3":

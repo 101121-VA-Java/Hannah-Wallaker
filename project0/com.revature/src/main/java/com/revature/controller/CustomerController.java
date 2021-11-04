@@ -20,10 +20,10 @@ public class CustomerController {
 
 			switch (input) {
 			case "1":
-				availableBooks(scan);
+				availableMemberships(scan);
 				break;
 			case "2":
-				viewPurchases(scan);
+				viewPastMemberships(scan);
 				break;
 			case "3":
 				paymentPortal(scan);
@@ -42,6 +42,22 @@ public class CustomerController {
 		}
 
 	}
+	
+
+	private void availableMemberships(Scanner scan) {
+		
+	}
+	
+	
+	private void viewPastMemberships(Scanner scan) {
+		
+	}
+	
+	
+	private void paymentPortal(Scanner scan) {
+		
+	}
+	
 
 	private void messageSystem(Scanner scan) {
 		// send a message to staff
@@ -66,50 +82,7 @@ public class CustomerController {
 		}
 
 	}
-
-	private void paymentPortal(Scanner scan) {
-		// TODO Auto-generated method stub
-		// pay here
-
-	}
-
-	private void viewPurchases(Scanner scan) {
-		// TODO Auto-generated method stub
-		// view past purchases
-
-	}
-
-	private void availableBooks(Scanner scan) {
-		boolean run = true;
-
-		while (run) {
-			// Need to connect database here... sort by genre?
-			System.out.println("1. View new arrivals");
-			System.out.println("2. View classics");
-			System.out.println("3. View Wallaker's recommendations");
-			System.out.println("4. Exit");
-
-			String input = scan.nextLine();
-
-			switch (input) {
-			case "1":
-				System.out.println("Arrivals page under construction");
-				break;
-			case "2":
-				System.out.println("Classics page under construction");
-				break;
-			case "3":
-				System.out.println("Recommendations page under construction");
-				break;
-			case "4":
-				run = false;
-				break;
-			default:
-				System.out.println("yeah... workin on it");
-			}
-
-		}
-
-	}
-
+	
+	
 }
+

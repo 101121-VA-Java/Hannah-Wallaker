@@ -24,16 +24,25 @@ public class UserController {
 		User newUser = new User(name, username, password);
 		
 		try {
-			newUser = us.addUser(newUser);
-			System.out.println("Welcome to our family! " + newUser.getName());
-		} catch  (UsernameAlreadyActiveException e) {
-			System.out.println("Username is already taken. Please try again!");
+			UserService us = new UserService();
+			us.loginSystem(username, password, name);
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-	//	us.addUser(newUser);
-
-	// 	System.out.println("All set. User has been added.");
 	}
+//		try {	
+//			
+//			newUser = us.addUser(newUser);
+//			System.out.println("Welcome to our family! " + newUser.getName());
+//		} catch  (UsernameAlreadyActiveException e) {
+//			System.out.println("Username is already taken. Please try again!");
+//		}
+//		
+//	//	us.addUser(newUser);
+//
+//	// 	System.out.println("All set. User has been added.");
+//	}
 
 	public void loginSystem(Scanner login) {
 		scan = login;
@@ -57,6 +66,8 @@ public class UserController {
 	}
 
 		
+
+		
 	
 	
 /*	public void searchForUser() {
@@ -67,7 +78,6 @@ public class UserController {
 			System.out.println("User doesn't exist.");
 			e.printStackTrace();
 		}
-
 	}
 */
 	
@@ -76,3 +86,6 @@ public class UserController {
 	
 	
 }
+	
+
+
