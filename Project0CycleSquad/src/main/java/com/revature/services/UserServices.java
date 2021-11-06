@@ -48,9 +48,5 @@ public class UserServices {
 
 
 	
-	
-	//	private boolean getUsername(String username) {
-		// TODO Auto-generated method stub
-//		return false;
 	}
 
