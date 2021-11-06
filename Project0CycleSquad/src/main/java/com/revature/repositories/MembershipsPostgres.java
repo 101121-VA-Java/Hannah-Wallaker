@@ -65,13 +65,13 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 
 	@Override
-	public void makeMyOffer(User u, int memid, int price) throws IOException, SQLException {
+	public void makeMyOffer(User u, int memid, int memprice) throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
 		String sql = "insert into offers (user id, memid, offerid) values (?, ?, ?);";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, u.getId());
 		ps.setInt(2, memid);
-		ps.setInt(3, price);
+		ps.setInt(3, memprice);
 		ps.executeUpdate();
 		
 	}
@@ -150,14 +150,14 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 
 	@Override
-	public ArrayList<PaymentPortal> viewMemberPayments() {
+	public ArrayList<PaymentPortal> viewMemberPayments() throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
 		String sql = "select * from offers mo join users u on mo.userid = u.userid join memberships mems on mems.memid = mo.userid";
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
 		while(rs.next()) {
-			PaymentPortal mems = new PaymentPortal(rs.getInt("memid"), rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"));
+			PaymentPortal mems = new PaymentPortal(rs.getInt("memid"), rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"), rs.getBoolean("userpaid"));
 			memberships.add(mems);
 		}
 		

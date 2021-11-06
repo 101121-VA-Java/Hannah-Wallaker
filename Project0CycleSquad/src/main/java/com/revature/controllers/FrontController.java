@@ -14,7 +14,7 @@ public class FrontController {
 	CustomerController customerController = new CustomerController();
 	EmployeeController employeeController = new EmployeeController();
 	
-	public void landingPage() throws SQLException, IOException {
+	public void landingPage() {
 		boolean run = true;
 		
 		while(run) {

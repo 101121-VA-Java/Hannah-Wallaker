@@ -1,10 +1,15 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.revature.models.Memberships;
+import com.revature.models.User;
+import com.revature.services.MembershipsServices;
 
 public class CustomerController {
 
-	public void customerController(Scanner scan) {
+	public static void customerController(Scanner scan) {
 		boolean run = true;
 		
 		while(run) {
@@ -15,14 +20,14 @@ public class CustomerController {
 			System.out.println("3. Navigate to payment portal");
 			System.out.println("4. Exit");
 			
-			String cusChoice = sc.nextLine();
+			String cusChoice = scan.nextLine();
 			
 			switch(cusChoice) {
 			case "1":
 				membershipOptions(scan);
 				break;
 			case "2":
-				viewMemberships(scan);
+				viewMyMemberships(scan);
 				break;
 			case "3":
 				paymentPortal(scan);
@@ -37,8 +42,43 @@ public class CustomerController {
 		
 	}
 	
-	private void membershipOptions(Scanner scan) {
+	
+
+	private static void membershipOptions(Scanner scan) {
+		
+		MembershipsServices memop = new MembershipsServices();
+		ArrayList<Memberships> membershipoptions = memop.getAllMemberships();
+		if(membershipoptions != null) {
+			for(Memberships mems : membershipoptions) {
+				System.out.println(mems);
+			}
+			
+			System.out.println("Select the ID of a Membership Option to make an offer if none of our choices work for you!");
+			int memChoice = scan.nextInt();
+			System.out.println("Enter an amount in whole dollars you would like to offer:");
+			int memCost = scan.nextInt();
+		
+			MembershipsServices mems = new MembershipsServices();
+			mems.makeMyOffer(User.u, memChoice, memCost);
+		}
+		else {
+			System.out.println("Sorry, we are experiencing an error");
+		}
+			
+	}
+	
+	private static void viewMyMemberships(Scanner scan) {
+		MembershipsServices mems = new MembershipsServices();
+		mems.viewMyMemberships(User.u.getId());
 		
 	}
+
+	
+	private static void paymentPortal (Scanner scan) {
+		MembershipsServices mems = new MembershipsServices();
+		mems.viewMyPayments(User.u.getId());
+	}
+		
+
 
 }
