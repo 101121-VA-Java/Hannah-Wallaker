@@ -14,58 +14,62 @@ import com.revature.repositories.UserPostgres;
 public class UserServices {
 	private UserDaoInt ud;
 	private UserPostgres up;
-	
+
 	public UserServices() {
 		up = new UserPostgres();
 	}
-	
+
 	public String addUser(User u) {
 		String userAdded = "Sorry, we were unable to create an account for you.";
-		try {		
-		up.addUser(u);
-		//return "true";
-		return null;
-	} catch(SQLException e){
-		if(e.getMessage().contains("duplicate key value")) {
-			return "Looks like you already have an account!";
-	}
-	}catch(IOException e) {
-		e.printStackTrace();
-	}
+		try {
+			up.addUser(u);
+			// return "true";
+			return null;
+		} catch (SQLException e) {
+			if (e.getMessage().contains("duplicate key value")) {
+				return "Looks like you already have an account!";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return userAdded;
 	}
-	
 
-	public String loginSystem(String username, String password, String name){
-		
+	public String loginSystem(String username, String password, String name) {
+
 		User loggedIn = null;
-		try{
+
+		try {
 			loggedIn = up.getUsername(username);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}catch (IOException e){
-			if (e.getMessage().contains("duplicate key value")) {
-				return "Looks like you already have an account with us!";
+		} catch (SQLException e) {
+			System.out.println("Error retrieving data");
+		} catch (IOException e) {
+			System.out.println("Error retrieving data");
+		}
+		if (loggedIn != null) {
+			if (loggedIn.getPassword().equals(password)) {
+				User.u = loggedIn;
+				return "loginsuccess";
+			} else {
+				return "Invalid login credentials";
 			}
 		}
-	
-		if (loggedIn != null) {
-		if(loggedIn.getPassword().equals(password)) {
-			User.u = loggedIn;
-			return "logginsuccess";
-		}
-		else { 
-			return "Sorry, invalid password";
-		}
-	}
 		
-		else { return "Sorry, invalid username";
-		}
-		
-
+		return "loginsuccess";
 	}
 
+}
 
-	
-	}
-
+/*
+ * loggedIn = up.getUsername(username);
+ * 
+ * if (loggedIn != null) { if(loggedIn.getPassword().equals(password)) { User.u
+ * = loggedIn; return "logginsuccess"; } else { return
+ * "Sorry, invalid password"; } }
+ * 
+ * else { return "Sorry, invalid username"; }
+ * 
+ * 
+ * }
+ * 
+ */

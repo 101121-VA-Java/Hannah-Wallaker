@@ -20,7 +20,7 @@ public class MembershipsServices {
 		mp = new MembershipsPostgres();
 	}
 	
-	public void addMemberships(Memberships mems) {
+	public boolean addMemberships(Memberships mems) {
 		try {
 			mp.addMembership(mems);
 		} catch (SQLException e) {
@@ -30,6 +30,8 @@ public class MembershipsServices {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return true;
 	}
 	
 	public void removeMemberships(int memId) {

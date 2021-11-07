@@ -31,7 +31,7 @@ public class UserPostgres {
 				return null;
 			}
 		
-		public void addUser(User u) throws SQLException, IOException{
+		public void addUser(User u){
 			try {
 				Connection conn = ConnectionUtil.getConnectionFromFile();
 				String sql = "insert into users (username, pword, uname, urole) values (?, ?, ?, ?)";

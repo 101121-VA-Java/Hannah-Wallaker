@@ -31,7 +31,7 @@ public class FrontController {
 				addUser(sc);
 				break;
 			case "2":
-				loginUser(sc);
+				loginSystem(sc);
 				break;
 			case "3":
 				run = false;
@@ -44,7 +44,7 @@ public class FrontController {
 		sc.close();
 	}
 	
-	private void addUser(Scanner sc) throws SQLException, IOException {
+	private void addUser(Scanner sc) {
 		boolean run = true;
 		boolean userAdded = false;
 		String username = "";
@@ -78,25 +78,25 @@ public class FrontController {
 	
 	}
 	
-	private void loginUser(Scanner sc) throws SQLException, IOException {
+	private void loginSystem(Scanner sc) {
 		boolean run = true;
-		boolean userExists = false;
+	//	boolean userExists = false;
 		String username = "";
 		String password = "";
 		String name = "";
 		
 		while(run) {
-			while(!userExists) {
+			//while(!userExists) {
 			System.out.println("Welcome back! Please enter your username");
 			username = sc.nextLine();
 			System.out.println("And your password:");
 			password = sc.nextLine();
 			System.out.println("Sweet, " + username + ", enter your name and you're all set!");
 			name = sc.nextLine();
-		} userExists = true;
+		//} userExists = true;
 		
 		
-		User u = new User(username, password, name, Role.CUSTOMER);
+	//	User u = new User(username, password, name, Role.CUSTOMER);
 			UserServices us = new UserServices();
 			String returnLogin = us.loginSystem(username, password, name);
 			if(returnLogin.equals("logginsuccess")) {
