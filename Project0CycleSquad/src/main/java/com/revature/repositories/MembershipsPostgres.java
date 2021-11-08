@@ -21,7 +21,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	@Override
 	public ArrayList<Memberships> viewAllMemberships() throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select * from items ;";
+		String sql = "select * from memberships;";
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<Memberships> memberships = new ArrayList<Memberships>();

@@ -7,8 +7,8 @@ import com.revature.models.User;
 
 public interface UserDaoInt {
 	
-	public String addUser(User u);
+	void addUser(User u) throws SQLException, IOException;
 	
-	public User getUsername(String username);
+	User getUsername(String username) throws SQLException, IOException;
 
 }

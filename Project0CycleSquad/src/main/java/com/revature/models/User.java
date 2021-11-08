@@ -5,123 +5,74 @@ public class User {
 	public static User u;
 	private int id;
 	private String username;
-	private String password;
-	private String name;
-	private Role role;
+	private String pword;
+	private String uname;
+	private Role urole;
 	
-	
-	public User(String username, String password, String name, Role role) {
+	public User(String username, String pword, String uname, Role urole) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.role = role;
+		this.pword = pword;
+		this.uname = uname;
+		this.urole = urole;
 	}
 
+	public static User getU() {
+		return u;
+	}
+
+	public static void setU(User u) {
+		User.u = u;
+	}
 
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public String getUsername() {
 		return username;
 	}
 
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-
-	public String getPassword() {
-		return password;
+	public String getPword() {
+		return pword;
 	}
 
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPword(String pword) {
+		this.pword = pword;
 	}
 
-
-	public String getName() {
-		return name;
+	public String getUname() {
+		return uname;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 
-
-	public Role getRole() {
-		return role;
+	public Role getUrole() {
+		return urole;
 	}
 
-
-	public void setRole(Role role) {
-		this.role = role;
+	public void setUrole(Role urole) {
+		this.urole = urole;
 	}
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (role != other.role)
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
-	}
-
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", role="
-				+ role + "]";
+		return "User [id=" + id + ", username=" + username + ", pword=" + pword + ", uname=" + uname + ", urole="
+				+ urole + "]";
 	}
 	
 	
 	
-
+	
 }

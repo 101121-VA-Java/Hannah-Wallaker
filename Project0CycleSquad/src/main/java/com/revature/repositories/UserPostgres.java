@@ -1,5 +1,6 @@
 package com.revature.repositories;
 
+import java.beans.Statement;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,43 +13,49 @@ import com.revature.util.ConnectionUtil;
 
 public class UserPostgres {
 	
-		public User getUsername(String username){
+	Connection con = null;
+	
+		public User getUsername(String username) throws SQLException, IOException{
 			User u = null;
-				try {
-					Connection conn = ConnectionUtil.getConnectionFromFile();
-					String sql = "select * from users where username = ? ";
-					PreparedStatement  ps = conn.prepareStatement(sql);
-					ps.setString(1, username);
-					ResultSet rs = ps.executeQuery();
-					while (rs.next()) {
-						return u;
-					}						
+					con = ConnectionUtil.getConnectionFromFile();
+					String sql = "select * from users where username = '" + username + "';";
+					java.sql.Statement state = con.createStatement();
+					ResultSet rs = state.executeQuery(sql);
 					
-				} catch (IOException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return null;
+		while (rs.next()) {
+			Role role = null;
+			if(rs.getString("urole").equals("CUSTOMER")) {
+				role = Role.CUSTOMER;
+			} else if(rs.getString("urole").equals("EMPLOYEE")) {
+				role = Role.EMPLOYEE;
+		}else if (rs.getString("urole").equals("OWNER")) {
+			role = Role.OWNER;
+		}
+			
+			u = new User(rs.getString("username"), rs.getString("pword"), rs.getString("uname"), role);
+			u.setId(rs.getInt("id"));
+			return u;		
+			
 			}
 		
-		public void addUser(User u){
-			try {
-				Connection conn = ConnectionUtil.getConnectionFromFile();
+		return null;
+		
+		}
+		
+		public void addUser(User u) throws SQLException, IOException{
+	
+				con = ConnectionUtil.getConnectionFromFile();
 				String sql = "insert into users (username, pword, uname, urole) values (?, ?, ?, ?)";
-				PreparedStatement  ps = conn.prepareStatement(sql);
+				PreparedStatement  ps = con.prepareStatement(sql);
 				String Role = u.getUsername();
 				ps.setString(1, u.getUsername());
-				ps.setString(2, u.getPassword());
-				ps.setString(3,u.getName());
+				ps.setString(2, u.getPword());
+				ps.setString(3,u.getUname());
 				ps.setString(4, Role);			
 				
 				ps.executeUpdate();
 			
-		}
-			 catch (IOException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		
 		}
 
 

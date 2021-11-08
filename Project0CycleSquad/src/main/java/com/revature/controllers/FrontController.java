@@ -14,7 +14,7 @@ public class FrontController {
 	CustomerController customerController = new CustomerController();
 	EmployeeController employeeController = new EmployeeController();
 	
-	public void landingPage() {
+	public void landingPage() throws SQLException, IOException {
 		boolean run = true;
 		
 		while(run) {
@@ -28,10 +28,10 @@ public class FrontController {
 			
 			switch(menuChoice) {
 			case "1":
-				addUser(sc);
+				registerNewUser(sc);
 				break;
 			case "2":
-				loginSystem(sc);
+				loginUser(sc);
 				break;
 			case "3":
 				run = false;
@@ -44,15 +44,14 @@ public class FrontController {
 		sc.close();
 	}
 	
-	private void addUser(Scanner sc) {
+	private void registerNewUser(Scanner sc) {
 		boolean run = true;
-		boolean userAdded = false;
 		String username = "";
 		String password = "";
 		String name = "";
 		
 		while(run) {
-			while(!userAdded) {
+
 				System.out.println("Welcome, new rider! Please enter a username for our leaderboards:");
 				username = sc.nextLine();
 				System.out.println("Sweet! Pick a password to secure your account");
@@ -60,63 +59,58 @@ public class FrontController {
 				System.out.println("Awesome, " + username + "! Type your name and you're all set!");
 				name = sc.nextLine();
 				
-			} userAdded = true;
 			
 			User u = new User(username, password, name, Role.CUSTOMER);
 			UserServices us = new UserServices();
-			String returnUser = us.addUser(u);
-			if(returnUser == "true") {
+			String userAdded = us.newUser(u);
+			if(userAdded == "true") {
 				System.out.println("Welcome new rider!");
 				run = false;
 			}
 			else {
-				userAdded = false;
-				System.out.println(returnUser);
+				System.out.println(userAdded);
 			}
 		}
 	
 	
 	}
 	
-	private void loginSystem(Scanner sc) {
+	private void loginUser(Scanner sc) throws SQLException, IOException {
 		boolean run = true;
-	//	boolean userExists = false;
 		String username = "";
 		String password = "";
 		String name = "";
 		
 		while(run) {
-			//while(!userExists) {
+
 			System.out.println("Welcome back! Please enter your username");
 			username = sc.nextLine();
 			System.out.println("And your password:");
 			password = sc.nextLine();
 			System.out.println("Sweet, " + username + ", enter your name and you're all set!");
 			name = sc.nextLine();
-		//} userExists = true;
+
 		
-		
-	//	User u = new User(username, password, name, Role.CUSTOMER);
 			UserServices us = new UserServices();
 			String returnLogin = us.loginSystem(username, password, name);
-			if(returnLogin.equals("logginsuccess")) {
+//			if(returnLogin.equals("logginsuccess")) {
 				run = false;
-				System.out.println("Great to see you again, " + User.u.getName() + "!");
+				System.out.println("Great to see you again, " + User.u.getUname() + "!");
 				
-				if(User.u.getRole() == Role.CUSTOMER) {
+				if(User.u.getUrole() == Role.CUSTOMER) {
 					CustomerController.customerController(sc);
 				}
-				else if(User.u.getRole() == Role.EMPLOYEE) {
+				else if(User.u.getUrole() == Role.EMPLOYEE) {
 					EmployeeController.employeeController(sc);
 				}
 				
 			}
-			else {
-				System.out.println(returnLogin);
-			}
+//			else {
+//				System.out.println(returnLogin);
+//			}
 		}
 	}
 	
 	
 
-}
+
