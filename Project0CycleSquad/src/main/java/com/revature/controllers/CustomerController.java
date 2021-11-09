@@ -48,7 +48,7 @@ public class CustomerController {
 		
 		MembershipsServices memop = new MembershipsServices();
 		ArrayList<Memberships> membershipoptions = memop.getAllMemberships();
-		if(membershipoptions != null) {
+		if(membershipoptions.size() != 0) {
 			for(Memberships mems : membershipoptions) {
 				System.out.println(mems);
 			}
@@ -62,7 +62,7 @@ public class CustomerController {
 			mems.makeMyOffer(User.u, memChoice, memCost);
 		}
 		else {
-			System.out.println("Sorry, we are experiencing an error");
+			System.out.println("No memberships available");
 		}
 			
 	}

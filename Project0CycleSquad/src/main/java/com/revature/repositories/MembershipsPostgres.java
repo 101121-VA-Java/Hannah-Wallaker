@@ -21,14 +21,33 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	@Override
 	public ArrayList<Memberships> viewAllMemberships() throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select * from memberships;";
+		String sql = "select memid, memprice, memname, memlength, memexception\r\n"
+				+ "from memberships m\r\n"
+				+ "except\r\n"
+				+ "select m.memid, memprice, memname, memlength, memexception\r\n"
+				+ "from memberships m\r\n"
+				+ "join offers mo on mo.memid = m.memid\r\n"
+				+ "where mo.userpaid = false;" ;
+		
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<Memberships> memberships = new ArrayList<Memberships>();
 		while(rs.next()) {
-			Memberships mems = new Memberships(rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"));
+			Memberships mems = new Memberships(rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexception"));
+			mems.setMemId(rs.getInt("memid"));
 			memberships.add(mems);
 		}
+
+		
+		
+//		String sql = "select * from memberships;";
+//		Statement state = con.createStatement();
+//		ResultSet rs = state.executeQuery(sql);
+//		ArrayList<Memberships> memberships = new ArrayList<Memberships>();
+//		while(rs.next()) {
+//			Memberships mems = new Memberships(rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"));
+//			memberships.add(mems);
+//		}
 		return memberships;
 	}
 
@@ -65,13 +84,13 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 
 	@Override
-	public void makeMyOffer(User u, int memid, int memprice) throws IOException, SQLException {
+	public void makeMyOffer(User u, int memid, int offer) throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "insert into offers (user id, memid, offerid) values (?, ?, ?);";
+		String sql = "insert into offers (userid, memid, offer) values (?, ?, ?);";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, u.getId());
 		ps.setInt(2, memid);
-		ps.setInt(3, memprice);
+		ps.setInt(3, offer);
 		ps.executeUpdate();
 		
 	}
@@ -79,7 +98,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	@Override
 	public ArrayList<PaymentPortal> viewMyPayments() throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select * from offers mo join users u on mo.userid = u.userid join memberships mems on mems.memid = mo.userid where mo.userpaid = false";
+		String sql = "select * from offers mo join users u on mo.userid = u.id join memberships mems on mems.memid = mo.userid where mo.userpaid = false";
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
@@ -152,7 +171,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	@Override
 	public ArrayList<PaymentPortal> viewMemberPayments() throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select * from offers mo join users u on mo.userid = u.userid join memberships mems on mems.memid = mo.userid";
+		String sql = "select * from offers mo join users u on mo.userid = u.id join memberships mems on mems.memid = mo.memid";
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();

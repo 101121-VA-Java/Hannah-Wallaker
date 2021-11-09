@@ -19,7 +19,7 @@ public interface MembershipsDaoInt {
 	
 	ArrayList<Memberships> viewMyPendingPurchases() throws IOException, SQLException;
 	
-	void makeMyOffer(User u, int memid, int memprice) throws IOException, SQLException;
+	void makeMyOffer(User u, int memid, int price) throws IOException, SQLException;
 	
 	ArrayList<PaymentPortal> viewMyPayments() throws IOException, SQLException;
 	
