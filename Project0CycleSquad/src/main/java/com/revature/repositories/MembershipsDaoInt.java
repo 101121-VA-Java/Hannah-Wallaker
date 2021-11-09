@@ -15,13 +15,13 @@ public interface MembershipsDaoInt {
 	
 	ArrayList<Memberships> viewAllMemberships() throws IOException, SQLException;
 	
-	ArrayList<Memberships> viewMyMemberships(int userId) throws IOException, SQLException;
+	ArrayList<PaymentPortal> viewMyMemberships(int userId) throws IOException, SQLException;
 	
 	ArrayList<Memberships> viewMyPendingPurchases() throws IOException, SQLException;
 	
 	void makeMyOffer(User u, int memid, int price) throws IOException, SQLException;
 	
-	ArrayList<PaymentPortal> viewMyPayments() throws IOException, SQLException;
+	ArrayList<PaymentPortal> viewMyPayments(int userId) throws IOException, SQLException;
 	
 	
 	

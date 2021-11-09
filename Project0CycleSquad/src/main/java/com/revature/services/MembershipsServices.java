@@ -60,12 +60,11 @@ public class MembershipsServices {
 		return null;
 	}
 	
-	public ArrayList<Memberships> viewMyMemberships(int userId){
+	public ArrayList<PaymentPortal> viewMyMemberships(int userId){
 		try {
-			displayListMemberships(mp.viewMyMemberships(userId));
-		}catch (SQLException e) {
+			displayListPaymentPortal(mp.viewMyMemberships(userId));
+		}catch(SQLException e) {
 			e.printStackTrace();
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,7 +123,7 @@ public class MembershipsServices {
 	
 	public ArrayList<PaymentPortal> viewMyPayments(int userId){
 		try {
-			displayListPaymentPortal(mp.viewMyPayments());
+			displayListPaymentPortal(mp.viewMyPayments(userId));
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

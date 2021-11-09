@@ -52,15 +52,14 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 
 	@Override
-	public ArrayList<Memberships> viewMyMemberships(int userId) throws IOException, SQLException {
+	public ArrayList<PaymentPortal> viewMyMemberships(int userId) throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select distinct m.memprice, m.memname, m.memlength, m.memexception from memberships m join offers mo on mo.userid = " + userId + "where mo.offeraccepted = true";
+		String sql = "select distinct p.payId, p.memName, p.customerName, p.userPaid from payments p join offers mo on mo.userid =" + userId + "where p.userPaid = true;" ;
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
-		ArrayList<Memberships> memberships = new ArrayList<Memberships>();
+		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
 		while(rs.next()) {
-			Memberships mems = new Memberships(rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexception"));
-			mems.setMemId(rs.getInt("memid"));
+			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), false);
 			memberships.add(mems);
 		}
 		
@@ -96,14 +95,16 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 
 	@Override
-	public ArrayList<PaymentPortal> viewMyPayments() throws IOException, SQLException {
+	public ArrayList<PaymentPortal> viewMyPayments(int userId) throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select * from offers mo join users u on mo.userid = u.id join memberships mems on mems.memid = mo.userid where mo.userpaid = false";
+	//	String sql = "select * from offers mo join users u on mo.userid = u.id join memberships m on m.memid = mo.memid where mo.userpaid = false";
+		
+		String sql = "select distinct p.payId, p.memName, p.customerName, p.userPaid from payments p join offers mo on mo.userid =" + userId + "where p.userPaid = false;" ;
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
 		while(rs.next()) {
-			PaymentPortal mems = new PaymentPortal(rs.getInt("memid"), rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"), false);
+			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), false);
 			memberships.add(mems);
 		}
 		
@@ -171,12 +172,12 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	@Override
 	public ArrayList<PaymentPortal> viewMemberPayments() throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select * from offers mo join users u on mo.userid = u.id join memberships mems on mems.memid = mo.memid";
+		String sql = "select * from offers mo join users u on mo.userid = u.id join memberships m on m.memid = mo.memid";
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
 		while(rs.next()) {
-			PaymentPortal mems = new PaymentPortal(rs.getInt("memid"), rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"), rs.getBoolean("userpaid"));
+			PaymentPortal mems = new PaymentPortal(rs.getInt("payInt"), rs.getString("memName"), rs.getString("customerName"), rs.getBoolean("userPaid"));
 			memberships.add(mems);
 		}
 		
