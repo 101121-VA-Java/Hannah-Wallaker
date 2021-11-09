@@ -36,7 +36,7 @@ public class CustomerController {
 				run = false;
 				break;
 			default:
-				System.out.println("Sorry, didn't catch that.");
+				System.out.println("Returning to menu");
 			}
 		}
 		

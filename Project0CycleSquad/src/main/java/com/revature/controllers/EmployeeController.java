@@ -18,7 +18,8 @@ public class EmployeeController {
 			System.out.println("2. Remove a membership");
 			System.out.println("3. Take a look at pending offers");
 			System.out.println("4. View all payments");
-			System.out.println("5. logout");
+			System.out.println("5. View Weekly Payments");
+			System.out.println("6. logout");
 			
 			String choice = sc.nextLine();
 			switch(choice) {
@@ -35,12 +36,20 @@ public class EmployeeController {
 				viewAllPayments(sc);
 				break;
 			case "5":
+				viewWeeklyPayments(sc);
+			case "6":
 				run = false;
 				break;
 			default:
-				System.out.println("Sorry, I don't understand.");
+				System.out.println("Returning to menu");
 			}
 		}
+	}
+
+	private static void viewWeeklyPayments(Scanner sc) {
+		MembershipsServices mems = new MembershipsServices();
+		mems.calculateWeeklyPayment();
+		
 	}
 
 	private static void viewAllPayments(Scanner sc) {
@@ -55,7 +64,16 @@ public class EmployeeController {
 		System.out.println("Please choose the ID number for the offer you would like to update");
 		int offerId = sc.nextInt();
 		System.out.println("Would you like to accept or reject this offer?");
-		boolean decision = sc.nextBoolean();
+		//boolean decision = sc.nextBoolean();
+		boolean decision = false;
+		sc.nextLine();
+		String userinput = sc.nextLine();
+		if (userinput.equals("accept")) {
+			decision = true;
+		}
+		else {
+			decision = false;
+		}
 		if(decision) {
 			for (MemberOffers mo : displayListMemberOffers) {
 				if(mo.getOfferId() == offerId) {
@@ -85,16 +103,18 @@ public class EmployeeController {
 	}
 
 	private static void addMemberships(Scanner sc) {
+		System.out.println("Enter a new MembershipId");
+		int memid = sc.nextInt();
 		System.out.println("Enter a price for the new Membership in whole dollars");
 		int memprice = sc.nextInt();
-		System.out.println("Enter a name for the new Membership");
+	//	System.out.println("Enter a name for the new Membership");
 		String memname = sc.nextLine();
 		System.out.println("How long will this membership run?");
 		String memlength = sc.nextLine();
-		System.out.println("And are there any exceptions or limitations to thos Membership?");
+		System.out.println("And are there any exceptions or limitations to this Membership?");
 		String memexceptions = sc.nextLine();
 		
-		Memberships newmem = new Memberships(memprice, memname, memlength, memexceptions);
+		Memberships newmem = new Memberships(memid, memprice, memname, memlength, memexceptions);
 		MembershipsServices memser = new MembershipsServices();
 		
 		if(memser.addMemberships(newmem) == false) {

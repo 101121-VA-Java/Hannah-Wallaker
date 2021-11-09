@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.revature.models.MemberOffers;
 import com.revature.models.Memberships;
 import com.revature.models.PaymentPortal;
+import com.revature.models.PaymentPortalEmployeeView;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
@@ -33,7 +34,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<Memberships> memberships = new ArrayList<Memberships>();
 		while(rs.next()) {
-			Memberships mems = new Memberships(rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexception"));
+			Memberships mems = new Memberships(rs.getInt("memId"), rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexception"));
 			mems.setMemId(rs.getInt("memid"));
 			memberships.add(mems);
 		}
@@ -59,7 +60,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
 		while(rs.next()) {
-			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), false);
+			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), true);
 			memberships.add(mems);
 		}
 		
@@ -74,7 +75,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<Memberships> memberships = new ArrayList<Memberships>();
 		while(rs.next()) {
-			Memberships mems = new Memberships(rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"));
+			Memberships mems = new Memberships(rs.getInt("memid"), rs.getInt("memprice"), rs.getString("memname"), rs.getString("memlength"), rs.getString("memexceptions"));
 			mems.setMemId(rs.getInt("memid"));
 			memberships.add(mems);
 		}
@@ -113,14 +114,15 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 
 	@Override
-	public void addMembership(Memberships mems) throws IOException, SQLException {	
+	public void addMemberships(Memberships mems) throws IOException, SQLException {	
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "insert into memberships (memprice, memname, memlength, memexceptions) values (?, ?, ?, ?); ";
+		String sql = "insert into memberships (memid, memprice, memname, memlength, memexception) values (?, ?, ?, ?, ?); ";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, mems.getMemprice());
-		ps.setString(2, mems.getMemname());
-		ps.setString(3, mems.getMemlength());
-		ps.setString(4, mems.getMemexceptions());
+		ps.setInt(1, mems.getMemId());
+		ps.setInt(2, mems.getMemprice());
+		ps.setString(3, mems.getMemname());
+		ps.setString(4, mems.getMemlength());
+		ps.setString(5, mems.getMemexceptions());
 		ps.executeUpdate();
 	}
 
@@ -154,7 +156,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	@Override
 	public void acceptRejectOffer(int offerId, boolean accept, int memId) throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "update offers set offer accepted = ? where offerid = ?";
+		String sql = "update offers set offeraccepted = ? where offerid = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, offerId);
 		ps.setBoolean(2, accept);
@@ -170,14 +172,14 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 
 	@Override
-	public ArrayList<PaymentPortal> viewMemberPayments() throws IOException, SQLException {
+	public ArrayList<PaymentPortalEmployeeView> viewMemberPayments() throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select * from offers mo join users u on mo.userid = u.id join memberships m on m.memid = mo.memid";
+		String sql = "select * from payments p join users u on p.customername = u.uname;" ;
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
-		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
+		ArrayList<PaymentPortalEmployeeView> memberships = new ArrayList<PaymentPortalEmployeeView>();
 		while(rs.next()) {
-			PaymentPortal mems = new PaymentPortal(rs.getInt("payInt"), rs.getString("memName"), rs.getString("customerName"), rs.getBoolean("userPaid"));
+			PaymentPortalEmployeeView mems = new PaymentPortalEmployeeView(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), rs.getBoolean("userPaid"), rs.getInt("id"), rs.getString("username"), rs.getString("pword"), rs.getString("uname"), rs.getString("urole"));
 			memberships.add(mems);
 		}
 		
@@ -185,6 +187,22 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 		
 	}
 	
+	@Override
+	public ArrayList<MemberOffers> getWeeklyPayments() throws SQLException, IOException {
+		con = ConnectionUtil.getConnectionFromFile();
+		String sql = "SELECT * FROM OFFERS where userPaid = 'true'"
+				+ " and date_created > DATE(NOW()) - INTERVAL '7' DAY ;" ;
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList<MemberOffers> memberoffers = new ArrayList<MemberOffers>();
+		while ( rs.next() ) {		
+			MemberOffers mo = new MemberOffers(rs.getInt("offerid"), rs.getInt("userid"),
+					rs.getInt("memid"), rs.getInt("offer"), rs.getBoolean("acceptOffer"),
+					rs.getBoolean("userPaid"));
+			memberoffers.add(mo);			
+		}
+		return memberoffers;
+	}
 	
 
 }

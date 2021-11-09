@@ -1,19 +1,24 @@
 package com.revature.services;
 
 import java.io.IOException;
+//import java.lang.System.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.revature.models.MemberOffers;
 import com.revature.models.Memberships;
 import com.revature.models.PaymentPortal;
+import com.revature.models.PaymentPortalEmployeeView;
 import com.revature.models.User;
 import com.revature.repositories.MembershipsDaoInt;
 import com.revature.repositories.MembershipsPostgres;
 
+
 public class MembershipsServices {
-	
+	private static Logger log = LogManager.getRootLogger();
 	private MembershipsPostgres mp;
 	
 	public MembershipsServices() {
@@ -22,7 +27,7 @@ public class MembershipsServices {
 	
 	public boolean addMemberships(Memberships mems) {
 		try {
-			mp.addMembership(mems);
+			mp.addMemberships(mems);
 		} catch (SQLException e) {
 			e.printStackTrace();
 
@@ -64,7 +69,7 @@ public class MembershipsServices {
 		try {
 			displayListPaymentPortal(mp.viewMyMemberships(userId));
 		}catch(SQLException e) {
-			e.printStackTrace();
+		//	log.("payment portal error", e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,9 +97,9 @@ public class MembershipsServices {
 			System.out.println("Offer success! Awaiting review");
 		}
 		catch(SQLException e){
-			System.out.println("Sorry, offer did not go through");
+		//	Log.error("Sorry, offer did not go through", e);
 		}catch(IOException e) {
-			System.out.println("Sorry, offer unsuccessful");
+		//	Log.error("Sorry, offer unsuccessful", e);
 		}
 	}
 	
@@ -134,9 +139,9 @@ public class MembershipsServices {
 		return null;
 	}
 	
-	public ArrayList<PaymentPortal> viewMemberPayments(){
+	public ArrayList<PaymentPortalEmployeeView> viewMemberPayments(){
 		try {
-			displayListPaymentPortal(mp.viewMemberPayments());
+			displayListPaymentPortalEmployeeView(mp.viewMemberPayments());
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -147,11 +152,28 @@ public class MembershipsServices {
 		return null;
 	}
 	
-	
+	public void calculateWeeklyPayment() {
+		try {
+			showWeeklyPayment(mp.getWeeklyPayments());
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+		//	Log.error("Fatal error while trying to calculate Weekly Payment.", e);
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
 		
+	private void showWeeklyPayment(ArrayList<MemberOffers> weeklyPayments) {
+		int sales = 0;
+		for(MemberOffers mo : weeklyPayments) {
+			sales += mo.getOffer();
+		}
+		System.out.println("Total for week is:" + sales);
+		
+	}
+
 	public void displayListMemberships(ArrayList<Memberships> list) {
 		for (Memberships mems : list) {
 			System.out.println(mems);
@@ -172,7 +194,11 @@ public class MembershipsServices {
 	
 	
 	
-	
+	public void displayListPaymentPortalEmployeeView(ArrayList<PaymentPortalEmployeeView> list) {
+		for(PaymentPortalEmployeeView mems : list) {
+			System.out.println(mems);
+		}
+	}
 	
 	
 	

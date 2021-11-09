@@ -47,11 +47,11 @@ public class UserPostgres {
 				con = ConnectionUtil.getConnectionFromFile();
 				String sql = "insert into users (username, pword, uname, urole) values (?, ?, ?, ?)";
 				PreparedStatement  ps = con.prepareStatement(sql);
-				String Role = u.getUsername();
+				
 				ps.setString(1, u.getUsername());
 				ps.setString(2, u.getPword());
 				ps.setString(3,u.getUname());
-				ps.setString(4, Role);			
+				ps.setString(4, u.getUrole().toString());			
 				
 				ps.executeUpdate();
 			

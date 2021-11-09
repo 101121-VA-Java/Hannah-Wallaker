@@ -9,7 +9,7 @@ public class Memberships {
 	private String memexceptions;
 	
 	
-	public Memberships(int memprice, String memname, String memlength, String memexceptions) {
+	public Memberships(int memId, int memprice, String memname, String memlength, String memexceptions) {
 		super();
 		this.memId = memId;
 		this.memprice = memprice;

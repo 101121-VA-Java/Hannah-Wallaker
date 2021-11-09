@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.revature.models.MemberOffers;
 import com.revature.models.Memberships;
 import com.revature.models.PaymentPortal;
+import com.revature.models.PaymentPortalEmployeeView;
 import com.revature.models.User;
 
 public interface MembershipsDaoInt {
@@ -27,7 +28,7 @@ public interface MembershipsDaoInt {
 	
 	
 	//employee:
-	void addMembership(Memberships mem) throws IOException, SQLException;
+	void addMemberships(Memberships mem) throws IOException, SQLException;
 	
 	void removeMembership(int memId) throws IOException, SQLException;
 	
@@ -35,7 +36,8 @@ public interface MembershipsDaoInt {
 	
 	void acceptRejectOffer(int offerId, boolean accept , int memid) throws IOException, SQLException;
 	
-	ArrayList<PaymentPortal> viewMemberPayments() throws IOException, SQLException;
+	ArrayList<PaymentPortalEmployeeView> viewMemberPayments() throws IOException, SQLException;
 	
 
+	ArrayList<MemberOffers> getWeeklyPayments() throws SQLException, IOException;
 }
