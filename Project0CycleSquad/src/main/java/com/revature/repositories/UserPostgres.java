@@ -1,6 +1,5 @@
 package com.revature.repositories;
 
-import java.beans.Statement;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

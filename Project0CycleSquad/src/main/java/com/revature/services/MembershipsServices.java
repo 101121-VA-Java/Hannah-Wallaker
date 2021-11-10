@@ -1,8 +1,6 @@
 package com.revature.services;
 
 import java.io.IOException;
-//import java.lang.System.Logger;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.revature.models.MemberOffers;
@@ -10,7 +8,6 @@ import com.revature.models.Memberships;
 import com.revature.models.PaymentPortal;
 import com.revature.models.PaymentPortalEmployeeView;
 import com.revature.models.User;
-import com.revature.repositories.MembershipsDaoInt;
 import com.revature.repositories.MembershipsPostgres;
 
 
@@ -42,10 +39,9 @@ public class MembershipsServices {
 		try {
 			mp.removeMembership(memId);
 		}catch(SQLException e) {
-			e.printStackTrace();
+			log.error("Warning: error trying  to remove item");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Warning: error trying  to remove item");
 		}
 	}
 	
@@ -54,11 +50,10 @@ public class MembershipsServices {
 			return mp.viewAllMemberships();
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Warning: error retrieving all memberships");
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Warning: error retrieving all memberships");
 		}
 		
 		return null;
@@ -68,10 +63,9 @@ public class MembershipsServices {
 		try {
 			displayListPaymentPortal(mp.viewMyMemberships(userId));
 		}catch(SQLException e) {
-		//	log.("payment portal error", e);
+			log.error("Warning: error when customer is trying to view all memberships");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Warning: error when customer is trying to view all memberships");
 		}
 		
 		return null;
@@ -82,9 +76,9 @@ public class MembershipsServices {
 			displayListMemberOffers(mp.customerOffers());
 			return mp.customerOffers();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			log.error("error when employee tries viewing customer offers");
 		}catch (IOException e) {
-			e.printStackTrace();
+			log.error("error when employee tries viewing customer offers");
 		}
 		
 		return null;
@@ -96,9 +90,9 @@ public class MembershipsServices {
 			System.out.println("Offer success! Awaiting review");
 		}
 		catch(SQLException e){
-		//	Log.error("Sorry, offer did not go through", e);
+			log.info("member should send offer to system for us to accept or reject on employee end");
 		}catch(IOException e) {
-		//	Log.error("Sorry, offer unsuccessful", e);
+			log.info("member should send offer to system for us to accept or reject on employee end");
 		}
 	}
 	
@@ -107,9 +101,9 @@ public class MembershipsServices {
 			mp.acceptRejectOffer(offerId, accept, memId);
 			System.out.println("A team member has reviewed this offer!");
 		}catch(SQLException e) {
-			e.printStackTrace();
+			log.info("sccept or reject offer should persist to database");
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.info("sccept or reject offer should persist to database");
 		}
 	}
 	
@@ -131,7 +125,6 @@ public class MembershipsServices {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -144,7 +137,6 @@ public class MembershipsServices {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -155,9 +147,7 @@ public class MembershipsServices {
 		try {
 			showWeeklyPayment(mp.getWeeklyPayments());
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
-		//	Log.error("Fatal error while trying to calculate Weekly Payment.", e);
-			e.printStackTrace();
+			log.error("error calculating and displaying weekly payments");
 		}
 	}
 	
