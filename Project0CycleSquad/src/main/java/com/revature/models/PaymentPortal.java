@@ -6,13 +6,15 @@ public class PaymentPortal {
 	private String memName;
 	private String customerName;
 	private boolean userPaid;
+	private String datePaid;
 	
-	public PaymentPortal(int payId, String memName, String customerName, boolean userPaid) {
+	public PaymentPortal(int payId, String memName, String customerName, boolean userPaid, String datePaid) {
 		super();
 		this.payId = payId;
 		this.memName = memName;
 		this.customerName = customerName;
 		this.userPaid = userPaid;
+		this.setDatePaid(datePaid);
 	}
 
 	public int getPayId() {
@@ -50,7 +52,15 @@ public class PaymentPortal {
 	@Override
 	public String toString() {
 		return "PaymentPortal [payId=" + payId + ", memName=" + memName + ", customerName=" + customerName
-				+ ", userPaid=" + userPaid + "]";
+				+ ", userPaid=" + userPaid + ", datePaid=" + datePaid +"]";
+	}
+
+	public String getDatePaid() {
+		return datePaid;
+	}
+
+	public void setDatePaid(String datePaid) {
+		this.datePaid = datePaid;
 	}
 	
 	

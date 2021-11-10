@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.revature.models.MemberOffers;
 import com.revature.models.Memberships;
 import com.revature.models.PaymentPortal;
@@ -16,6 +13,9 @@ import com.revature.models.User;
 import com.revature.repositories.MembershipsDaoInt;
 import com.revature.repositories.MembershipsPostgres;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MembershipsServices {
 	private static Logger log = LogManager.getRootLogger();
@@ -29,11 +29,10 @@ public class MembershipsServices {
 		try {
 			mp.addMemberships(mems);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Warning: something went wrong trying to add an item");
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Warning: something went wrong trying to add an item");
 		}
 		
 		return true;
@@ -165,10 +164,10 @@ public class MembershipsServices {
 	
 	
 		
-	private void showWeeklyPayment(ArrayList<MemberOffers> weeklyPayments) {
+	private void showWeeklyPayment(ArrayList<PaymentPortal> weeklyPayments) {
 		int sales = 0;
-		for(MemberOffers mo : weeklyPayments) {
-			sales += mo.getOffer();
+		for(PaymentPortal pp : weeklyPayments) {
+			sales += pp.getPayId();
 		}
 		System.out.println("Total for week is:" + sales);
 		

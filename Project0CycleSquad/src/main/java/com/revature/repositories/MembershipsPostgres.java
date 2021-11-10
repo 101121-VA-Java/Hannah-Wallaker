@@ -55,12 +55,12 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	@Override
 	public ArrayList<PaymentPortal> viewMyMemberships(int userId) throws IOException, SQLException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "select distinct p.payId, p.memName, p.customerName, p.userPaid from payments p join offers mo on mo.userid =" + userId + "where p.userPaid = true;" ;
+		String sql = "select distinct p.payId, p.memName, p.customerName, p.userPaid, p.datePaid from payments p join offers mo on mo.userid =" + userId + "where p.userPaid = true;" ;
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
 		while(rs.next()) {
-			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), true);
+			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), true, rs.getString("datePaid"));
 			memberships.add(mems);
 		}
 		
@@ -100,12 +100,12 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 		con = ConnectionUtil.getConnectionFromFile();
 	//	String sql = "select * from offers mo join users u on mo.userid = u.id join memberships m on m.memid = mo.memid where mo.userpaid = false";
 		
-		String sql = "select distinct p.payId, p.memName, p.customerName, p.userPaid from payments p join offers mo on mo.userid =" + userId + "where p.userPaid = false;" ;
+		String sql = "select distinct p.payId, p.memName, p.customerName, p.userPaid, p.datePaid from payments p join offers mo on mo.userid =" + userId + "where p.userPaid = false;" ;
 		Statement state = con.createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortal> memberships = new ArrayList<PaymentPortal>();
 		while(rs.next()) {
-			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), false);
+			PaymentPortal mems = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), false, rs.getString("datePaid"));
 			memberships.add(mems);
 		}
 		
@@ -179,7 +179,7 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 		ResultSet rs = state.executeQuery(sql);
 		ArrayList<PaymentPortalEmployeeView> memberships = new ArrayList<PaymentPortalEmployeeView>();
 		while(rs.next()) {
-			PaymentPortalEmployeeView mems = new PaymentPortalEmployeeView(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), rs.getBoolean("userPaid"), rs.getInt("id"), rs.getString("username"), rs.getString("pword"), rs.getString("uname"), rs.getString("urole"));
+			PaymentPortalEmployeeView mems = new PaymentPortalEmployeeView(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), rs.getBoolean("userPaid"), rs.getString("datePaid"), rs.getInt("id"), rs.getString("username"), rs.getString("pword"), rs.getString("uname"), rs.getString("urole"));
 			memberships.add(mems);
 		}
 		
@@ -188,20 +188,18 @@ public class MembershipsPostgres implements MembershipsDaoInt {
 	}
 	
 	@Override
-	public ArrayList<MemberOffers> getWeeklyPayments() throws SQLException, IOException {
+	public ArrayList<PaymentPortal> getWeeklyPayments() throws SQLException, IOException {
 		con = ConnectionUtil.getConnectionFromFile();
-		String sql = "SELECT * FROM OFFERS where userPaid = 'true'"
-				+ " and date_created > DATE(NOW()) - INTERVAL '7' DAY ;" ;
+		String sql = "SELECT * FROM payments where userPaid = 'true'"
+				+ " and datePaid > DATE(NOW()) - INTERVAL '7' DAY ;" ;
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-		ArrayList<MemberOffers> memberoffers = new ArrayList<MemberOffers>();
+		ArrayList<PaymentPortal> paypor = new ArrayList<PaymentPortal>();
 		while ( rs.next() ) {		
-			MemberOffers mo = new MemberOffers(rs.getInt("offerid"), rs.getInt("userid"),
-					rs.getInt("memid"), rs.getInt("offer"), rs.getBoolean("acceptOffer"),
-					rs.getBoolean("userPaid"));
-			memberoffers.add(mo);			
+			PaymentPortal pp = new PaymentPortal(rs.getInt("payId"), rs.getString("memName"), rs.getString("customerName"), rs.getBoolean("userPaid"), rs.getString("datePaid"));
+			paypor.add(pp);
 		}
-		return memberoffers;
+		return paypor;
 	}
 	
 

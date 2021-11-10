@@ -6,19 +6,21 @@ public class PaymentPortalEmployeeView {
 	private String memName;
 	private String customerName;
 	private boolean userPaid;
+	private String datePaid;
 	private int id;
 	private String username;
 	private String pword;
 	private String uname;
 	private String urole;
 	
-	public PaymentPortalEmployeeView(int payId, String memName, String customerName, boolean userPaid, int id,
+	public PaymentPortalEmployeeView(int payId, String memName, String customerName, boolean userPaid, String datePaid, int id,
 			String username, String pword, String uname, String urole) {
 		super();
 		this.payId = payId;
 		this.memName = memName;
 		this.customerName = customerName;
 		this.userPaid = userPaid;
+		this.datePaid = datePaid;
 		this.id = id;
 		this.username = username;
 		this.pword = pword;
@@ -101,8 +103,16 @@ public class PaymentPortalEmployeeView {
 	@Override
 	public String toString() {
 		return "PaymentPortalEmployeeView [payId=" + payId + ", memName=" + memName + ", customerName=" + customerName
-				+ ", userPaid=" + userPaid + ", id=" + id + ", username=" + username + ", pword=" + pword + ", uname="
+				+ ", userPaid=" + userPaid + ", datePaid=" + datePaid + ", id=" + id + ", username=" + username + ", pword=" + pword + ", uname="
 				+ uname + ", urole=" + urole + "]";
+	}
+
+	public String getDatePaid() {
+		return datePaid;
+	}
+
+	public void setDatePaid(String datePaid) {
+		this.datePaid = datePaid;
 	}
 	
 	

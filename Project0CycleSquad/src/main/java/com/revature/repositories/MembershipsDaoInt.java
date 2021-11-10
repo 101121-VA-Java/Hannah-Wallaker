@@ -39,5 +39,5 @@ public interface MembershipsDaoInt {
 	ArrayList<PaymentPortalEmployeeView> viewMemberPayments() throws IOException, SQLException;
 	
 
-	ArrayList<MemberOffers> getWeeklyPayments() throws SQLException, IOException;
+	ArrayList<PaymentPortal> getWeeklyPayments() throws SQLException, IOException;
 }
