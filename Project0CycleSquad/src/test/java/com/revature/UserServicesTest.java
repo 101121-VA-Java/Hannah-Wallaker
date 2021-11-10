@@ -5,15 +5,40 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.revature.models.Role;
 import com.revature.models.User;
+import com.revature.repositories.MembershipsPostgres;
 import com.revature.services.UserServices;
 
 public class UserServicesTest {
 	
 	private static UserServices us;
+	
+	@Before
+	public void beforeEach() {
+		System.out.println("Running before each test");
+	}
+
+	@After
+	public void afterEach() {
+		System.out.println("Running after each test");
+	}
+
+	@Before
+	public void setup() {
+		us = new UserServices();
+		
+	}
+
+	@After
+	public void tearDown() {
+		System.out.println("AfterAll");
+	}
+
 	
 	@Test
 	public void newUser(){
