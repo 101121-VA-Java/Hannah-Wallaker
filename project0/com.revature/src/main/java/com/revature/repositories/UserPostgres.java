@@ -67,7 +67,7 @@ public class UserPostgres implements UserDao {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				return false;
+				return true;
 			}						
 			
 		} catch (IOException | SQLException e) {
