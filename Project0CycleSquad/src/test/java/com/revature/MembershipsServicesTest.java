@@ -66,5 +66,33 @@ public class MembershipsServicesTest {
 		assertEquals(expected, actual);
 	}
 	
+	@Test
+	public void viewMyMemberships() {
+		boolean actual = false;
+		try {
+			if (mp.viewMyMemberships(0) != null) {
+				actual = true;
+			}	} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	}
+		boolean expected = true;
+		assertEquals(expected, actual);
 	
+}
+	
+	@Test
+	public void customerOffers() {
+		boolean actual = false;
+		try {
+			if(mp.customerOffers() != null) {
+				actual = true;
+			}
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	}
+		boolean expected = true;
+		assertEquals(expected, actual);
+	}
 }
