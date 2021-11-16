@@ -7,14 +7,14 @@ public class Reimbursements {
 	private boolean reSubmitted;
 	private boolean reResolved;
 	private String reDescription;
-	private String reReceipt;
+	//private String reReceipt;
 	private User reCreator;
 	private User reResolver;
 	private ReimbursementStatus reStatus;
 	private ReimbursementType reType;
 	
 	public Reimbursements(int reId, double reAmount, boolean reSubmitted, boolean reResolved, String reDescription,
-			String reReceipt, User reCreator, User reResolver, ReimbursementStatus reStatus,
+			User reCreator, User reResolver, ReimbursementStatus reStatus,
 			ReimbursementType reType) {
 		super();
 		this.reId = reId;
@@ -22,7 +22,7 @@ public class Reimbursements {
 		this.reSubmitted = reSubmitted;
 		this.reResolved = reResolved;
 		this.reDescription = reDescription;
-		this.reReceipt = reReceipt;
+	//	this.reReceipt = reReceipt;
 		this.reCreator = reCreator;
 		this.reResolver = reResolver;
 		this.reStatus = reStatus;
@@ -69,13 +69,13 @@ public class Reimbursements {
 		this.reDescription = reDescription;
 	}
 
-	public String getReReceipt() {
-		return reReceipt;
-	}
-
-	public void setReReceipt(String reReceipt) {
-		this.reReceipt = reReceipt;
-	}
+//	public String getReReceipt() {
+//		return reReceipt;
+//	}
+//
+//	public void setReReceipt(String reReceipt) {
+//		this.reReceipt = reReceipt;
+//	}
 
 	public User getReCreator() {
 		return reCreator;
@@ -112,7 +112,7 @@ public class Reimbursements {
 	@Override
 	public String toString() {
 		return "Reimbursements [reId=" + reId + ", reAmount=" + reAmount + ", reSubmitted=" + reSubmitted
-				+ ", reResolved=" + reResolved + ", reDescription=" + reDescription + ", reReceipt=" + reReceipt
+				+ ", reResolved=" + reResolved + ", reDescription=" + reDescription
 				+ ", reCreator=" + reCreator + ", reResolver=" + reResolver + ", reStatus=" + reStatus + ", reType="
 				+ reType + "]";
 	}

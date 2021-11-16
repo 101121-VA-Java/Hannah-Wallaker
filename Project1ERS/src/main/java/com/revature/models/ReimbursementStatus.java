@@ -3,39 +3,30 @@ package com.revature.models;
 public class ReimbursementStatus {
 	
 	private int statusId;
-	private String Status;
+	private boolean reApproved;
 	
 	
-	public ReimbursementStatus(int statusId, String status) {
+	public ReimbursementStatus(int statusId, boolean reApproved) {
 		super();
 		this.statusId = statusId;
-		Status = status;
+		this.reApproved = reApproved;
 	}
-
-
 	public int getStatusId() {
 		return statusId;
 	}
-
-
 	public void setStatusId(int statusId) {
 		this.statusId = statusId;
 	}
-
-
-	public String getStatus() {
-		return Status;
+	public boolean isReApproved() {
+		return reApproved;
 	}
-
-
-	public void setStatus(String status) {
-		Status = status;
+	public void setReApproved(boolean reApproved) {
+		this.reApproved = reApproved;
 	}
-
-
 	@Override
 	public String toString() {
-		return "ReimbursementStatus [statusId=" + statusId + ", Status=" + Status + "]";
+		return "ReimbursementStatus [statusId=" + statusId + ", reApproved=" + reApproved + "]";
 	}
-
+	
 }
+
