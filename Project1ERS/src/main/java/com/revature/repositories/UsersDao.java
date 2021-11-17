@@ -5,7 +5,7 @@ import com.revature.models.User;
 public interface UsersDao {
 	
 	//all users can login and logout
-	boolean loginSystem(User u);
+	User getUserByUsername(String username);
 	
 	
 	//employees can view and update their info
