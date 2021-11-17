@@ -9,8 +9,6 @@ public interface ManagerDao {
 	boolean updateRequest(Reimbursements re);
 	Reimbursements viewAllResolved();
 	Reimbursements viewSpecificRequest();
-	User viewUser(User u);
-	User updateUser(User u);
 	User viewAllEmployees();
 	
 	

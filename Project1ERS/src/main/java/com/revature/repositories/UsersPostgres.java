@@ -56,9 +56,5 @@ public class UsersPostgres implements UsersDao {
 		return null;
 	}
 	
-	
-	public User viewAllEmployees() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

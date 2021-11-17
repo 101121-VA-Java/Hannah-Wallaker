@@ -30,18 +30,6 @@ public class ManagerPostgres implements ManagerDao{
 	}
 
 	@Override
-	public User viewUser(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User updateUser(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public User viewAllEmployees() {
 		// TODO Auto-generated method stub
 		return null;
