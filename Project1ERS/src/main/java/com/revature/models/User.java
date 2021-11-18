@@ -8,11 +8,11 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private UserRole role;
+	private Role role;
 	
 	
 	public User(int userId, String uname, String password, String firstName, String lastName, String email,
-			UserRole role) {
+			Role role) {
 		super();
 		this.userId = userId;
 		this.uname = uname;
@@ -84,12 +84,12 @@ public class User {
 	}
 
 
-	public UserRole getRole() {
+	public Role getRole() {
 		return role;
 	}
 
 
-	public void setRole(UserRole role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 

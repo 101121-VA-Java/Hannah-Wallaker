@@ -55,6 +55,15 @@ public class UsersPostgres implements UsersDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
+	@Override
+	public User getUserById(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
