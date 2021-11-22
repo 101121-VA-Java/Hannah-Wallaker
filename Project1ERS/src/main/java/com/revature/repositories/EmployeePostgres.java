@@ -18,15 +18,15 @@ public class EmployeePostgres implements EmployeeDao{
 
 	@Override
 	public boolean submitMyRequest(Reimbursements re) {
-		String sql = "insert into reimbursements(recreator, reamount, resubmitted, reresolved, redescription)"
+		String sql = "insert into Reimbursements (reCreator, reAmount, reDescription, reStatus, reType)"
 					+ "values (?, ?, ?, ?, ?)";
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, re.getReCreator().getUname());
 			ps.setDouble(2, re.getReAmount());
-			ps.setBoolean(3, re.isReSubmitted());
-			ps.setBoolean(4, re.isReResolved());
-			ps.setString(5, re.getReDescription());
+			ps.setString(3, re.getReDescription());
+			ps.setInt(4, re.getReStatus().getStatusId());
+			ps.setInt(5, re.getReType().getTypeId());
 			return true;
 			
 		} catch (SQLException e) {
@@ -43,50 +43,52 @@ public class EmployeePostgres implements EmployeeDao{
 
 	@Override
 	public ArrayList<Reimbursements> viewMyPending(User u) {
-		String sql = "\r\n"
-				+ "select * from reimbursements where recreator = ? "
-				+ "and resubmitted = true and reresolved = false;";
+		String sql = "select * from reimbursements where recreator = ? and reStatus = 0;";
+		ArrayList<Reimbursements> pendingList = new ArrayList<Reimbursements>();
+		
 		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, u.getUname());
 			ResultSet rs = ps.executeQuery();
-			ArrayList<Reimbursements> pendingList = new ArrayList<Reimbursements>();
+			
 			while ( rs.next() ) {		
-//				ReimbursementStatus reStatus = new ReimbursementStatus(rs.getInt("reimb_status_id"), false);
-//				ReimbursementType reType = new ReimbursementType(rs.getInt("reimb_type_id"), sql);
-//				
-//				Reimbursements re = new Reimbursements(0, sql, u, null, null);
+				Reimbursements re = new Reimbursements(rs.getInt("reId"), rs.getString("reCreator"), 
+						rs.getDouble("reAmount"), rs.getString("reDescription"), 
+						rs.getInt("statusId"), rs.getInt("typeId"));
+				pendingList.add(re);
 			}
+			
 			}
 			catch (SQLException | IOException e) {			
 				e.printStackTrace();			
 			}
-			return null;
+			return pendingList;
 
 	}
 
 	@Override
 	public ArrayList<Reimbursements> viewMyResolved(User u) {
-		String sql = "\r\n"
-				+ "select * from reimbursements where recreator = ? "
-				+ "and resubmitted = true and reresolved = false;";
+		String sql = "select * from reimbursements where recreator = ? and reStatus = 1;";
+		ArrayList<Reimbursements> resolvedList = new ArrayList<Reimbursements>();
+		
 		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, u.getUname());
 			ResultSet rs = ps.executeQuery();
-			ArrayList<Reimbursements> resolvedList = new ArrayList<Reimbursements>();
-			while ( rs.next() ) {		
-//				ReimbursementStatus reStatus = new ReimbursementStatus(rs.getInt("reimb_status_id"), false);
-//				ReimbursementType reType = new ReimbursementType(rs.getInt("reimb_type_id"), sql);
-//				
-//				Reimbursements re = new Reimbursements(0, sql, u, null, null);
+
+			while ( rs.next() ) {	
+				Reimbursements re = new Reimbursements(rs.getInt("reId"), rs.getString("reCreator"), 
+						rs.getDouble("reAmount"), rs.getString("reDescription"), 
+						rs.getInt("statusId"), rs.getInt("typeId"));
+				resolvedList.add(re);
 			}
+			
 			}
 			catch (SQLException | IOException e) {			
 				e.printStackTrace();			
 			}
 		
-		return null;
+		return resolvedList;
 	}
 
 

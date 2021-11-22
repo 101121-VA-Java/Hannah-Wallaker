@@ -10,7 +10,7 @@ public class AuthController {
 	private static AuthServices as = new AuthServices();
 	
 	public static void loginSystem(Context ctx) {
-		String username = ctx.formParam("username");
+		String username = ctx.formParam("uname");
 		String password = ctx.formParam("password");
 		
 		String token = null;

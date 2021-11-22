@@ -1,12 +1,16 @@
-document.getElementById("submitButtom").addEventListener('click', loginsystem);
+const button = document.getElementById('submitButton');
 
-let api = "http://localhost:8080/auth";
+button.addEventListener("click", loginsystem)
+
+
+
+let api = "http://localhost/auth";
 
 function loginsystem(){
     document.getElementById("error-div").innerHTML = "";
 
     let username = document.getElementById("username").value;
-    let pasword = document.getElementById("password").value;
+    let password = document.getElementById("password").value;
 
     let xhr = new XMLHttpRequest();
 

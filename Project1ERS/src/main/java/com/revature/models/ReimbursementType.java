@@ -10,6 +10,25 @@ public class ReimbursementType {
 		this.typeId = typeId;
 		this.type = type;
 	}
+	
+	public ReimbursementType(int id) {
+		super();
+		this.typeId = typeId;
+		switch(typeId) {
+		case 1:
+			type = "Lodging";
+			break;
+		case 2:
+			type = "Travel";
+			break;
+		case 3:
+			type = "Food";
+			break;
+		default:
+			type = "Other";
+			break;
+		}
+	}
 
 	public int getTypeId() {
 		return typeId;

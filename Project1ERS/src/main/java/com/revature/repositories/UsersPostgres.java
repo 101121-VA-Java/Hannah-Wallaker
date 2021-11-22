@@ -12,13 +12,13 @@ import com.revature.util.ConnectionUtil;
 public class UsersPostgres implements UsersDao {
 
 	@Override
-	public User getUserByUsername(String username) {
+	public User getUserByUsername(String uname) {
 		User u = null;
 		try {
 			Connection con = ConnectionUtil.getConnectionFromFile();
 			String sql = "select * from users where uname = ?;";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, username);
+			ps.setString(1, uname);
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {

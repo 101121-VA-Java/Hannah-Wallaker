@@ -16,11 +16,11 @@ public class AuthServices {
 	}
 	
 	
-	public String loginSystem(String username, String password) {
+	public String loginSystem(String uname, String password) {
 		
 		String token = null;
 		
-		User principal = ud.getUserByUsername(username);
+		User principal = ud.getUserByUsername(uname);
 		
 		if(principal != null && principal.getPassword().equals(password)) {
 			token = principal.getUserId() + ":" + principal.getRole();
