@@ -24,12 +24,14 @@ public class EmployeeServices {
 		return false;
 	}
 	
-	public void viewMyPending(User u) {
+	public ArrayList<Reimbursements> viewMyPending(User u) {
 		ArrayList<Reimbursements> reList = ed.viewMyPending(u);
+		return reList;
 	}
 	
-	public void viewMyResolved(User u) {
-		ArrayList<Reimbursements> relist = ed.viewMyResolved(u);
+	public ArrayList<Reimbursements> viewMyResolved(User u) {
+		ArrayList<Reimbursements> reList = ed.viewMyResolved(u);
+		return reList;
 	}
 	
 

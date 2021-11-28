@@ -10,17 +10,16 @@ import com.revature.controllers.*;
 
 public class Routes {
 	
-	public void run() {
-		Javalin app = Javalin.create( (config) -> {
-			config.enableCorsForAllOrigins();
-			config.defaultContentType = "application/json";
-		});
-		app.start(8080);
-		
-		app.before(ctx -> {
-			ctx.header("Access-Controll-Allow-Headers", "Authorization");
-			ctx.header("Access-Control-Expose-Headers", "Authorization");
-		});
+	public void run() {	
+			Javalin app = Javalin.create( (config) -> {
+				config.enableCorsForAllOrigins();
+			
+			}).start();
+			
+			app.before(ctx -> {
+			    ctx.header("Access-Control-Allow-Headers", "Authorization");
+			    ctx.header("Access-Control-Expose-Headers", "Authorization");
+			});
 		
 		app.routes(() -> {
 			

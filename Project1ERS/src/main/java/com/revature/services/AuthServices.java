@@ -1,55 +1,31 @@
 package com.revature.services;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
-import java.util.Arrays;
-import com.revature.models.Role;
 import com.revature.models.User;
-import com.revature.repositories.DaoFactory;
 import com.revature.repositories.UsersDao;
+import com.revature.repositories.UsersPostgres;
 
 public class AuthServices {
-	
-	private UsersDao ud;
-	
-	public AuthServices() {
-		ud = DaoFactory.getDaoFactory().getUsersDao();
-	}
-	
-	
-	public String loginSystem(String uname, String password) {
-		
+
+	private UsersDao ud = new UsersPostgres();
+
+	public String login(String username, String password) {
+		User u = getUserByUsername(username);
 		String token = null;
-		
-		User principal = ud.getUserByUsername(uname);
-		
-		if(principal != null && principal.getPassword().equals(password)) {
-			token = principal.getUserId() + ":" + principal.getRole();
+
+		if (u != null && u.getPassword().equals(password)) {
+
+			token = u.getUserId() + ":" + u.getRole().getRoleId();
 		}
-		
 		return token;
 	}
-	
-	/* I want to implement these info clips!! 
-	 * @param String token, Role
-	 * @return true if user is granted permission to certain pages
-	 */
-	public boolean authPermission(String token, Role... allowedRoles) {
-		
-		if(token == null) {
-			return false;
-		}
-		
-		String[] info = token.split(":");
-		int token_id = Integer.parseInt(info[0]);
-		Role token_role = Role.valueOf(info[1]);
-		User principal = ud.getUserById(token_id);
-		
-		if(principal != null && token_role.equals(principal.getRole())
-				&& Arrays.asList(allowedRoles).contains(token_role)) {
-			return true;
-		}
-		return false;
-		
+
+	private User getUserByUsername(String username) {
+		return ud.getUserByUsername(username) ;
 	}
 
+	
 }

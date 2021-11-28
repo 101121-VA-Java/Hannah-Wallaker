@@ -8,8 +8,8 @@ public interface UsersDao {
 
 	User getUserByUsername(String username);
 	User getUserById(int userId);
-	User viewMyInfo(User u);
-	User updateMyInfo(User u);
+	boolean updateMyInfo(User u);
+	User viewMyInfo(String uname);
 	
 	
 
