@@ -21,15 +21,15 @@ function login(){
     
             if(tok.split(":")[1] === "2"){
 
-                window.location.href = "manager.html";
+                window.location.href = "views/managers.html";
             } else {
-                window.location.href="employee.html";
+                window.location.href="views/employees.html";
             }
             
 
         } else if (xhr.readyState === 4){
             // provide user with feedback of failure to login
-            document.getElementById("error").innerHTML = "Unable to login.";
+            document.getElementById("error").innerHTML = xhr.response;
            }
 
         }
@@ -43,12 +43,12 @@ function login(){
 
 
 if(tok == null){
-    window.location.href = "index.html";
+    window.location.href = "views/index.html";
 }
 
 document.getElementById("logout").addEventListener('click', LogOut);
 
 function LogOut(){
     sessionStorage.clear();
-    window.location.href = "index.html";
+    window.location.href = "views/index.html";
 }

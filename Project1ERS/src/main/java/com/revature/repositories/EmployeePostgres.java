@@ -19,13 +19,13 @@ public class EmployeePostgres implements EmployeeDao{
 	@Override
 	public boolean submitMyRequest(Reimbursements re) {
 		String sql = "insert into Reimbursements (reCreator, reAmount, reDescription, reStatus, reType)"
-					+ "values (?, ?, ?, ?, ?)";
+					+ "values (?, ?, ?, 0, ?)";
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, re.getReCreator().getUname());
 			ps.setDouble(2, re.getReAmount());
 			ps.setString(3, re.getReDescription());
-			ps.setInt(4, re.getReStatus().getStatusId());
+			ps.setInt(4, 0);
 			ps.setInt(5, re.getReType().getTypeId());
 			return true;
 			

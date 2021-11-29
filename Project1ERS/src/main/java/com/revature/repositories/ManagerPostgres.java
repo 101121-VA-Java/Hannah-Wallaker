@@ -36,12 +36,39 @@ public class ManagerPostgres implements ManagerDao{
 			return pendingList;
 
 	}
+	
+	//review!!
 
 	@Override
 	public boolean updateRequest(Reimbursements re) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
+//		String sql = "update reimbursements set recreator = ?, reamount = ?, "
+//				+ "redescription = ?, restatus = ?, retype = ? where reid = ?;" ;
+//		
+//		int rowsChanged = -1;
+//		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+//			PreparedStatement ps = con.prepareStatement(sql);
+//
+//			ps.setString(1, re.getReCreator());
+//			ps.setDouble(2, re.getReAmount());
+//			ps.setString(3, re.getReDescription());
+//			ps.setInt(4, re.getReStatus());
+//			ps.setInt(5, re.getReType());
+//			ps.setInt(6,  re.getReId());
+//
+//			rowsChanged = ps.executeUpdate();
+//		} catch (SQLException | IOException e) {
+//			e.printStackTrace();
+//		}
+//		if (rowsChanged > 0) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
+
 
 	@Override
 	public ArrayList<Reimbursements> viewAllResolved() {

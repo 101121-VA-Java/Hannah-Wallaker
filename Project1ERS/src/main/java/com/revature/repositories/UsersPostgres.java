@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.models.User;
+import com.revature.models.UserRole;
 import com.revature.util.ConnectionUtil;
 
 public class UsersPostgres implements UsersDao {
@@ -16,12 +17,13 @@ public class UsersPostgres implements UsersDao {
 		User u = null;
 		try {
 			Connection con = ConnectionUtil.getConnectionFromFile();
-			String sql = "select * from users where uname = ?;";
+			String sql = "select * from users u join userrole r on u.uname = r.uname where u.uname = ?;";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
+				UserRole ur = new UserRole(rs.getInt("roleid"));
 				u = new User(
 						rs.getInt("userId"),
 						rs.getString("uname"),
@@ -29,7 +31,7 @@ public class UsersPostgres implements UsersDao {
 						rs.getString("firstname"),
 						rs.getString("lastname"),
 						rs.getString("email"), 
-						null
+						ur
 						);
 			}
 			
@@ -75,9 +77,31 @@ public class UsersPostgres implements UsersDao {
 
 	@Override
 	public boolean updateMyInfo(User u) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "update users set uname = ?, pword = ?, "
+				+ "firstname = ?, lastname = ?, email = ? where userid = ?;" ;
+		
+		int rowsChanged = -1;
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, u.getUname());
+			ps.setString(2, u.getPassword());
+			ps.setString(3, u.getFirstName());
+			ps.setString(4, u.getLastName());
+			ps.setString(5, u.getEmail());
+			ps.setInt(6, u.getUserId());
+
+			rowsChanged = ps.executeUpdate();
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		if (rowsChanged > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
 
 
 

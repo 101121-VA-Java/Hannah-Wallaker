@@ -12,7 +12,7 @@ public class AuthServices {
 
 	private UsersDao ud = new UsersPostgres();
 
-	public String login(String username, String password) {
+	public String loginSystem(String username, String password) {
 		User u = getUserByUsername(username);
 		String token = null;
 

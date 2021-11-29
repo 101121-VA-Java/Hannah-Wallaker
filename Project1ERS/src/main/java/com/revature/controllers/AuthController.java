@@ -20,7 +20,7 @@ public class AuthController {
     		String token = null;
     		
     		if(username != null && password != null) {
-    				token = as.login(username, password);
+    				token = as.loginSystem(username, password);
     		}
     		
     		if(token != null) {
