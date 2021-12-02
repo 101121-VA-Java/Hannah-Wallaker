@@ -28,25 +28,37 @@ public class Driver {
 		
 		app.routes(() -> {
 			
+			path("employees", () -> {
+				path("all", () -> {
+					get(ManagerController::viewAllEmployees);
+				});
+			});
+			
 			path("auth", () -> {
 				post(AuthController::loginSystem); //Employees and Managers can login
 			});
 			path("account", () -> {
+				path("{id}", () -> {
 					get(UsersController::viewMyInfo); //view info
 					put(UsersController::updateMyInfo); //update info
 				});
-
+			});
 			
 			path("reimbursement", () -> {
 				post(EmployeeController::submitMyRequest); // Employees can submit
 				put(ManagerController::updateReStatus); //Managers can accept or deny requests
 				get(ManagerController::viewAll);
+				
+				path("{id}", () -> {
+					get(ManagerController::viewReByUserId); // Managers can view requests per employee
+				});
+				
 			});
 			path("pending", () -> {
 				path("manager", () -> {
 					get(ManagerController::viewAllPending); //Managers can get all pending requests
 				});
-				path("{username}", () -> {
+				path("{id}", () -> {
 					get(EmployeeController::viewMyPending); //Employees can view their pending
 				});
 			});
@@ -55,25 +67,17 @@ public class Driver {
 				path("manager", () -> {
 					get(ManagerController::viewAllResolved); // Managers can view all resolved
 				});
-				path("{username}", () -> {
+				path("{id}", () -> {
 					get(EmployeeController::viewMyResolved); // Employees can view their resolved
 				});
 			});
 			
-			path("{id}", () -> {
-				get(ManagerController::viewReByUserId); // Managers can view requests per employee
-			});
-			
-			path("employees", () -> {
-				path("all", () -> {
-					get(ManagerController::viewAllEmployees);
-				});
-			});
-			
-		});
+		
+
 			
 
-	}
+	});
+}
 }
 
 	 

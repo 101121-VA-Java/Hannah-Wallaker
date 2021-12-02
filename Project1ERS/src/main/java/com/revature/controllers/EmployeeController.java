@@ -18,19 +18,19 @@ public class EmployeeController {
 	private static UsersServices us = new UsersServices();
 	private static EmployeeServices es = new EmployeeServices();
 
-	public static void getUserById(Context ctx) throws SQLException, IOException {
-		int id = Integer.parseInt(ctx.pathParam("id"));
-		User u = us.getUserById(id);
-
-		if (u != null) {
-			ctx.json(u);
-			ctx.status(HttpCode.OK);
-		} else {
-			ctx.status(404);
-			ctx.status(HttpCode.NOT_FOUND);
-		}
-
-	}
+//	public static void getUserById(Context ctx) throws SQLException, IOException {
+//		int id = Integer.parseInt(ctx.pathParam("id"));
+//		User u = us.getUserById(id);
+//
+//		if (u != null) {
+//			ctx.json(u);
+//			ctx.status(HttpCode.OK);
+//		} else {
+//			ctx.status(404);
+//			ctx.status(HttpCode.NOT_FOUND);
+//		}
+//
+//	}
 
 	public static void submitMyRequest(Context ctx) {
 		ctx.result("list");
@@ -38,33 +38,58 @@ public class EmployeeController {
 	}
 
 	public static void viewMyResolved(Context ctx) {
-		if (AuthController.checkToken(ctx) == true) {
-			EmployeeServices es = new EmployeeServices();
-			User u = new User();
-			u.setUsername(SplitTok(ctx)[0]);
-			ArrayList<Reimbursements> ar = es.viewMyResolved(u);
-			ctx.json(ar);
-		} else {
-			ctx.result("false");
+		EmployeeServices es = new EmployeeServices();
+		User u = null;
+		try {
+			int id = Integer.parseInt(SplitTok(ctx)[0]);
+			System.out.println(id);
+			u = us.getUserById(id);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
+		System.out.println(u);
+		ArrayList<Reimbursements> ar = es.viewMyResolved(u);
+		System.out.println(ar);
+		ctx.json(ar);
+		ctx.status(HttpCode.CREATED);
+}
+	
 
 	public static String[] SplitTok(Context ctx) {
-		String token = ctx.header("auth");
+		String token = ctx.header("Authorization");
 		String[] tok = token.split(":");
 		return tok;
 	}
 
 	public static void viewMyPending(Context ctx) {
-		if (AuthController.checkToken(ctx) == true) {
 			EmployeeServices es = new EmployeeServices();
-			User u = new User();
-			u.setUsername(SplitTok(ctx)[0]);
+			User u = null;
+			try {
+				int id = Integer.parseInt(SplitTok(ctx)[0]);
+				System.out.println(id);
+				u = us.getUserById(id);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(u);
 			ArrayList<Reimbursements> ar = es.viewMyPending(u);
+			System.out.println(ar);
 			ctx.json(ar);
-		} else {
-			ctx.result("false");
-		}
+			ctx.status(HttpCode.CREATED);
 	}
 
 }

@@ -43,7 +43,7 @@ public class AuthController {
 	}
 
 	public static boolean checkToken(Context ctx) {
-		String token = ctx.header("AuthToken");
+		String token = ctx.header("Authorization");
 		String[] tok = token.split(":");
 		User u = new User();
 		u.setUsername(tok[0]);

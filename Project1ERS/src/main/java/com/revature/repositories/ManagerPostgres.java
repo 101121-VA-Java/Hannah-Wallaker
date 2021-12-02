@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import com.revature.models.Reimbursements;
 import com.revature.models.User;
+import com.revature.models.UserRole;
 import com.revature.util.ConnectionUtil;
 
 public class ManagerPostgres implements ManagerDao{
@@ -25,7 +26,7 @@ public class ManagerPostgres implements ManagerDao{
 			while ( rs.next() ) {		
 				Reimbursements re = new Reimbursements(rs.getInt("reId"), rs.getString("reCreator"), 
 						rs.getDouble("reAmount"), rs.getString("reDescription"), 
-						rs.getInt("statusId"), rs.getInt("typeId"));
+						rs.getInt("restatus"), rs.getInt("retype"));
 				pendingList.add(re);
 			}
 			
@@ -67,7 +68,7 @@ public class ManagerPostgres implements ManagerDao{
 				while ( rs.next() ) {		
 					Reimbursements re = new Reimbursements(rs.getInt("reId"), rs.getString("reCreator"), 
 							rs.getDouble("reAmount"), rs.getString("reDescription"), 
-							rs.getInt("statusId"), rs.getInt("typeId"));
+							rs.getInt("restatus"), rs.getInt("retype"));
 					resolvedList.add(re);
 				}
 				
@@ -109,20 +110,20 @@ public class ManagerPostgres implements ManagerDao{
 
 	@Override
 	public ArrayList<User> viewAllEmployees(){
+		String sql = "select * from users u join userrole s on u.uname = s.uname;";
 		ArrayList<User> emps = new ArrayList<User>();
 		
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
-			String sql = "select * from users u join userrole r on "
-					+ "u.uname = r.uname where r.urole = 'Employee';";
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
 			
 			while(rs.next()) {
-				User e = new User(rs.getInt("userId"), rs.getString("uname"),
+				UserRole ur = new UserRole(rs.getInt("roleid"));
+				User e = new User(rs.getInt("userid"), rs.getString("uname"),
 						rs.getString("pword"), 
 						rs.getString("firstname"), rs.getString("lastname"), 
-						rs.getString("email"), rs.getInt("roleId"), 
-						 rs.getString("urole"));
+						rs.getString("email"), 
+						ur);
 				emps.add(e);
 			}
 			
@@ -139,10 +140,10 @@ public class ManagerPostgres implements ManagerDao{
 	
 	@Override
 	public ArrayList<Reimbursements> viewAllReimbursements(){
-	ArrayList<Reimbursements> re = new ArrayList<Reimbursements>();
+		String sql = "select * from reimbursements;";
+		ArrayList<Reimbursements> re = new ArrayList<Reimbursements>();
 		
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
-			String sql = "select * from reimbursements;";
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
 			

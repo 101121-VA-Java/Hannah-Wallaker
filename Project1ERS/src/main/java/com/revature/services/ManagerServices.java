@@ -32,8 +32,9 @@ public class ManagerServices {
 		return md.viewSpecificRequest(username);
 		
 	}
-	ArrayList<User> viewAllEmployees(){
-		return md.viewAllEmployees();
+	public ArrayList<User> viewAllEmployees(){
+		ArrayList<User> empList = md.viewAllEmployees();
+		return empList;
 	} 
 	
 	ArrayList<Reimbursements> viewAll(){

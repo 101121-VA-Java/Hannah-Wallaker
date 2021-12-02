@@ -21,10 +21,10 @@ public class User {
 		this.email = email;
 		this.role = role;
 	}
-	public User(int int1, String string, String string2, String string3, String string4, String string5, int int2,
-			String string6) {
-		// TODO Auto-generated constructor stub
-	}
+//	public User(int int1, String string, String string2, String string3, String string4, String string5, int int2,
+//			String string6) {
+//		// TODO Auto-generated constructor stub
+//	}
 	public User() {
 		// TODO Auto-generated constructor stub
 	}

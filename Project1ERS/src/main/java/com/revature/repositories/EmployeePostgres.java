@@ -52,9 +52,13 @@ public class EmployeePostgres implements EmployeeDao{
 			ResultSet rs = ps.executeQuery();
 			
 			while ( rs.next() ) {		
-				Reimbursements re = new Reimbursements(rs.getInt("reId"), rs.getString("reCreator"), 
-						rs.getDouble("reAmount"), rs.getString("reDescription"), 
-						rs.getInt("statusId"), rs.getInt("typeId"));
+				Reimbursements re = new Reimbursements
+						(rs.getInt("reid"), 
+						rs.getString("recreator"), 
+						rs.getDouble("reamount"), 
+						rs.getString("redescription"), 
+						rs.getInt("restatus"), 
+						rs.getInt("retype"));
 				pendingList.add(re);
 			}
 			
@@ -76,12 +80,17 @@ public class EmployeePostgres implements EmployeeDao{
 			ps.setString(1, u.getUsername());
 			ResultSet rs = ps.executeQuery();
 
-			while ( rs.next() ) {	
-				Reimbursements re = new Reimbursements(rs.getInt("reId"), rs.getString("reCreator"), 
-						rs.getDouble("reAmount"), rs.getString("reDescription"), 
-						rs.getInt("statusId"), rs.getInt("typeId"));
+			while ( rs.next() ) {		
+				Reimbursements re = new Reimbursements
+						(rs.getInt("reid"), 
+						rs.getString("recreator"), 
+						rs.getDouble("reamount"), 
+						rs.getString("redescription"), 
+						rs.getInt("restatus"), 
+						rs.getInt("retype"));
 				resolvedList.add(re);
 			}
+			
 			
 			}
 			catch (SQLException | IOException e) {			
