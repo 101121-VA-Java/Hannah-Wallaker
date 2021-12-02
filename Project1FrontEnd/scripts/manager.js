@@ -49,6 +49,18 @@ async function getAllPendingReimbursements(){
         }
     }
 
+    async function updateRequests(){
+        console.log("in the function!");
+        let reId = document.getElementById("reId").value;
+        let restatus = document.getElementById("status").value;
+        let data = restatus;
+
+        let response = await fetch(`http://localhost:8080/reimbursement/${reId}`, {method: 'put',
+        headers : {'Authorization': sessionStorage.token},
+        body: data,
+        });
+    }
+
     async function getAllResolvedReimbursements(){
         console.log("at least we are in the function");
         let response = await fetch(`http://localhost:8080/resolved/manager`, {method: 'get',

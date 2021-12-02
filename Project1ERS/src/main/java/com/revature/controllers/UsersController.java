@@ -33,8 +33,7 @@ public class UsersController {
 		temp.setUsername(u.getUsername());
 		temp.setEmail(u.getEmail());
 		temp.setRole(u.getRole());
-		System.out.println(temp);
-		System.out.println(u);
+
 		us.updateMyInfo(temp);
 	}
 

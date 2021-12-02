@@ -116,3 +116,41 @@ async function getResolvedReimbursements(){
                 // alert(response.status);
                 }
             }
+
+            async function submitReimbursement(){
+                console.log("at least we are in the function");
+                let reCreator = document.getElementById("ReCreator").value;
+                let reAmount = document.getElementById("ReAmount");
+                let reDescription = document.getElementById("ReDescription");
+                let reStatusId = document.getElementById("ReStatus");
+                let reTypeId = document.getElementById("ReType");
+                let data = {reCreator, reAmount, reDescription, reStatusId, reTypeId};
+
+                let response = await fetch(`http://localhost:8080/reimbursement/${sessionStorage.token.split(":")[0]}`, {method: 'post',
+            headers : {'Authorization': sessionStorage.token},
+            body: JSON.stringify(data)
+            });
+
+            if (response.status === 201) {
+                response = await response.json();
+                console.log(response);
+                // console.log(response.json());
+                // alert("Retrieved Pending")
+                let account = document.getElementById("account");
+                let result = "";
+                for (let i = 0; i < response.length; i++) {
+                    const element = response[i];
+                    // result += `<div>Company Email:  ${element.email}</div>`;
+                    // result += `<div>First Name:  ${element.firstName}</div>`;
+                    // result += `<div>Last Name:  ${element.lastName}</div>`;
+                    // result += `<div>Username:  ${element.Username}</div>`;
+                }
+    
+                account.innerHTML = result;
+                }
+                else {      
+                 alert(response.status);
+                }
+            
+            }
+            

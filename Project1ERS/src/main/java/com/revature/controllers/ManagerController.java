@@ -109,7 +109,17 @@ public class ManagerController {
 
 	  
 	    public static void updateReStatus(Context ctx) {    
-	    	ctx.result("list");
+	    	ManagerServices ms = new ManagerServices();
+	    	Reimbursements r = null;
+	    	int statusId = Integer.parseInt(ctx.body());
+	    	
+	    	int reId = Integer.parseInt(ctx.pathParam("id"));
+	    	r = ms.getRequestById(reId);
+	    	
+	    	r.setReStatusId(statusId);
+	    	
+	    	ms.updateRequest(r);
+	    	
 	    }
 	    
 	    public static void viewAll(Context ctx) {

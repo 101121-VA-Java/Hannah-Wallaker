@@ -17,8 +17,8 @@ public class ManagerServices {
 
 	}
 	
-	public boolean updateRequest(int statusid) {
-		if(md.updateRequest(statusid)) {
+	public boolean updateRequest(Reimbursements re) {
+		if(md.updateRequest(re)) {
 			return true;
 		}
 		return false;
@@ -28,8 +28,8 @@ public class ManagerServices {
 		return md.viewAllResolved();
 	}
 	
-	public ArrayList<Reimbursements> viewSpecificRequest(String username) {
-		return md.viewSpecificRequest(username);
+	public Reimbursements getRequestById(int reId) {
+		return md.getRequestById(reId);
 		
 	}
 	public ArrayList<User> viewAllEmployees(){

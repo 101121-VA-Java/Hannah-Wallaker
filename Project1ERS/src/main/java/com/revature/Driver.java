@@ -45,12 +45,11 @@ public class Driver {
 			});
 			
 			path("reimbursement", () -> {
-				post(EmployeeController::submitMyRequest); // Employees can submit
-				put(ManagerController::updateReStatus); //Managers can accept or deny requests
 				get(ManagerController::viewAll);
 				
 				path("{id}", () -> {
-					get(ManagerController::viewReByUserId); // Managers can view requests per employee
+					post(EmployeeController::submitMyRequest); // Employees can submit
+					put(ManagerController::updateReStatus); //Managers can accept or deny requests
 				});
 				
 			});

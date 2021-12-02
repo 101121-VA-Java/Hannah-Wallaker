@@ -40,16 +40,22 @@ public class ManagerPostgres implements ManagerDao{
 
 
 	@Override
-	public boolean updateRequest(int statusid) {
+	public boolean updateRequest(Reimbursements re) {
 		
 		String sql = "update reimbursements set restatus = ? where reid = ?;";
+		int rowsChanged = -1;
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, statusid);
-			ps.executeUpdate();
-			return true;
+			ps.setInt(1, re.getReStatusId());
+			ps.setInt(2, re.getReId());
+			rowsChanged = ps.executeUpdate();
+		
 		}catch (SQLException | IOException e) {			
 			e.printStackTrace();
+		}
+		if (rowsChanged > 0) {
+			return true;
+		} else {
 			return false;
 		}
 		
@@ -80,23 +86,23 @@ public class ManagerPostgres implements ManagerDao{
 	}
 
 	@Override
-	public ArrayList<Reimbursements> viewSpecificRequest(String username) {
+	public Reimbursements getRequestById(int reId) {
+		Reimbursements r = null;
 		
-		String sql = "select * from reimbursements r join users u on "
-					+ "u.uname = r.recreator where u.uname = ?;";
-		ArrayList<Reimbursements> re = new ArrayList<Reimbursements>();
+		String sql = "select * from reimbursements where reid = ?;";
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, username);
+			ps.setInt(1, reId);
 			ResultSet rs = ps.executeQuery();
 			
-			while ( rs.next() ) {
-				User u = new User();
-				u.setUsername(rs.getString("uname"));
-				Reimbursements Re = new Reimbursements(rs.getInt("reid"), rs.getString("recreator"), 
-						rs.getDouble("reamount"), rs.getString("redescription"), 
-						rs.getInt("statusid"), rs.getInt("typeid"));
-				re.add(Re);
+			if(rs.next()) {
+				r = new Reimbursements(rs.getInt("reid"),
+						rs.getString("recreator"),
+						rs.getDouble("reamount"),
+						rs.getString("redescription"),
+						rs.getInt("restatus"),
+						rs.getInt("retype")
+						);
 			}
 			
 		} catch (SQLException e) {
@@ -105,7 +111,7 @@ public class ManagerPostgres implements ManagerDao{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}return re;
+		}return r;
 	}
 
 	@Override

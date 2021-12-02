@@ -12,8 +12,8 @@ public interface ManagerDao {
 	ArrayList<Reimbursements> viewAllPending();
 	ArrayList<Reimbursements> viewAllResolved();
 	ArrayList<User> viewAllEmployees();
-	ArrayList<Reimbursements> viewSpecificRequest(String username);
-	boolean updateRequest(int statusid);
+	public Reimbursements getRequestById(int reId);
+	boolean updateRequest(Reimbursements re);
 	public ArrayList<Reimbursements> viewAllReimbursements();
 	
 

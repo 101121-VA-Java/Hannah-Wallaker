@@ -52,22 +52,22 @@
     </table>
     <div id="allPending"></div>
 
-    <button onclick="updateRequests()">Update A Reimbursement Request</button>
-            <div style="margin: auto; width: 80%;">
-                <table class="table table-dark table-striped" id="updateAccountList">
-                </table>
-                <div id="updateRequest"></div> 
+
                 
                 <div class="input-group input-group-lg">
                     <span class="input-group-text" id="reimId">Reimbursement ID #</span>
-                    <input id="last" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    <input id="reId" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                   </div>
                 <div class="input-group input-group-lg">
                     <span class="input-group-text" id="firstName">Status ID (1 to approve, 2 to deny)</span>
                     <input id="status" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                   </div>
                  
-             
+                  <button onclick="updateRequests()">Update A Reimbursement Request</button>
+                  <div style="margin: auto; width: 80%;">
+                      <table class="table table-dark table-striped" id="updateAccountList">
+                      </table>
+                      <div id="updateRequest"></div> 
 
 
 
