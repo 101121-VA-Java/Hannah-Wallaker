@@ -3,18 +3,18 @@ package com.revature.models;
 public class User {
 
 	private int userId;
-	private String uname;
+	private String username;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private UserRole role;
 
-	public User(int userId, String uname, String password, String firstName, String lastName, String email,
+	public User(int userId, String username, String password, String firstName, String lastName, String email,
 			UserRole role) {
 		super();
 		this.userId = userId;
-		this.uname = uname;
+		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -25,17 +25,20 @@ public class User {
 			String string6) {
 		// TODO Auto-generated constructor stub
 	}
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public String getUname() {
-		return uname;
+	public String getUsername() {
+		return username;
 	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setUsername(String uname) {
+		this.username = uname;
 	}
 	public String getPassword() {
 		return password;
@@ -69,7 +72,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", uname=" + uname + ", password=" + password + ", firstName=" + firstName
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
 	}
 	

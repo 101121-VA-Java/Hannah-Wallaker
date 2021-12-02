@@ -24,6 +24,14 @@ public class Reimbursements {
 		this.reStatus = reStatus;
 		this.reType = reType;
 	}
+	public Reimbursements(int reid, User recreator, double reamount, String redescription, ReimbursementStatus restatus, ReimbursementType retype) {
+		this.reId = reid;
+		this.reCreator = recreator;
+		this.reAmount = reamount;
+		this.reDescription = redescription;
+		this.reStatus = restatus;
+		this.reType = retype;
+	}
 	public Reimbursements(int int1, String string, double double1, String string2, int int2, int int3) {
 		// TODO Auto-generated constructor stub
 	}
@@ -81,12 +89,8 @@ public class Reimbursements {
 	public void setReType(ReimbursementType reType) {
 		this.reType = reType;
 	}
-	@Override
-	public String toString() {
-		return "Reimbursements [reId=" + reId + ", reAmount=" + reAmount + ", reSubmitted=" + reSubmitted
-				+ ", reResolved=" + reResolved + ", reDescription=" + reDescription + ", reCreator=" + reCreator
-				+ ", reResolver=" + reResolver + ", reStatus=" + reStatus + ", reType=" + reType + "]";
-	}
+	
+
 
 	
 }

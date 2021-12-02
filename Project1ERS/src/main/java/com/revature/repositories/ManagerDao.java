@@ -10,11 +10,11 @@ import com.revature.models.User;
 public interface ManagerDao {
 	
 	ArrayList<Reimbursements> viewAllPending();
-	boolean updateRequest(Reimbursements re);
 	ArrayList<Reimbursements> viewAllResolved();
-	Reimbursements viewSpecificRequest();
 	ArrayList<User> viewAllEmployees();
-	
+	ArrayList<Reimbursements> viewSpecificRequest(String username);
+	boolean updateRequest(int statusid);
+	public ArrayList<Reimbursements> viewAllReimbursements();
 	
 
 }

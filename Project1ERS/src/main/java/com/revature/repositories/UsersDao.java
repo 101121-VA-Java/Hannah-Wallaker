@@ -9,7 +9,8 @@ public interface UsersDao {
 	User getUserByUsername(String username);
 	User getUserById(int userId);
 	boolean updateMyInfo(User u);
-	User viewMyInfo(String uname);
+	User viewMyInfo(String username);
+
 	
 	
 

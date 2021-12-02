@@ -20,13 +20,15 @@ public class UsersServices {
 		
 	}
 	
-	User getUserById(int userId) throws SQLException, IOException {
+	public User getUserById(int userId) throws SQLException, IOException {
 		User u = null;
 		u = ud.getUserById(userId);
 		return u;
 	}
-	User viewMyInfo(String username) throws SQLException, IOException {
-		return up.getUserByUsername(username);
+	public User viewMyInfo(String username) throws SQLException, IOException {
+		User u = null;
+		u = ud.viewMyInfo(null);
+		return u;
 	}
 	
 	public boolean updateMyInfo(User u) {

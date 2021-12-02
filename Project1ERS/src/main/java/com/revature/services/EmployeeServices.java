@@ -11,7 +11,7 @@ public class EmployeeServices {
 	
 	private EmployeeDao ed;
 	
-	EmployeeServices(){
+	  public EmployeeServices(){
 		super();
 		ed = new EmployeePostgres();
 	}

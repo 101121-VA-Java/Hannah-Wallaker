@@ -1,53 +1,149 @@
+async function getRequestData(r_url) {
+    try {
+    let response = await fetch(r_url, {method: 'get',
+    headers : {'authToken': AuthToken},        
+    });
+    if (response.status === 200) {
+        let jsontext = await response.json();    
+        return jsontext;
+        }
+        else {      
+        var titleName = document.getElementById('errorMsg'); 
+        titleName.innerText  = response.status;
+        }
+    }
+    catch (err) {
+        var titleName = document.getElementById('errorMsg'); 
+        titleName.innerText  = "500";
+    };
 
-//submit reimb
-document.getElementById("submitreimb").addEventListener("click", submitReimb);
-let api = "http://localhost:8080";
 
-function submitReimb(){
-    let recreator = document.getElementById("recreator").value;
-    let reamount = document.getElementById("reamount").value;
-    let redescription = document.getElementById("redescription").value;
-    let restatus = document.getElementById("restatus").value;
-    let retype = document.getElementById("retype").value;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", `${api}/reimbursement`);
-
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState === 4 && xhr.status === 200){
-            console.log("success");
-        } else if (xhr.readyState === 4){
-            document.getElementById("error").innerHTML = xhr.response;
-           }  
-           
-           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-           let requestBody = `recreator=${recreator}&reamount=${reamount}&redescription=${redescription}&restatus=${restatus}&retype=${retype}`;
-   
-           xhr.send(requestBody);
-
-}
-
-}
-
-// view pending reimb
-const divPending = document.getElementById('pendingList');
-if (divPending != null){
-divPending.innerHTML = "<h1> testing </h1>";
 };
 
+function viewTable(table, jsontext){
+    for (let i = 0; i < jsontext.length +1 ; i++) {
+        var row = table.insertRow(0);        
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        if (i === jsontext.length) {                    
+            cell1.innerHTML = "reid";  
+            cell2.innerHTML = "recreator";  
+            cell3.innerHTML = "reamount"; 
+            cell4.innerHTML = "redescription"; 
+            cell5.innerHTML = "restatus"; 
+            cell6.innerHTML = "retype"; 
+            }
+        else {
+            cell1.innerHTML = jsontext[i].reid;
+            cell2.innerHTML = jsontext[i].recreator;  
+            cell3.innerHTML = jsontext[i].reamount; 
+            cell4.innerHTML = jsontext[i].redescription;
+            cell5.innerHTML = jsontext[i].status.status;
+            cell6.innerHTML = jsontext[i].type.type;
+        }
 
-  //view resolved requests
-const divResolved = document.getElementById('viewResolved');
-if (divResolved != null ){
-divResolved.innerHTML = "<h1> testing </h1>";
-};
+    }
+}
 
- //view account info
+//accountInfo
 const divAccount = document.getElementById('accountInfo');
 if (divAccount != null){
-    divAccount.innerHTML = "<h1> testing </h1>";
+    accountInfo();
+    const btn = document.getElementById('updateUserInfoBtn');    
+    btn.addEventListener("click", updateUserInfo);
 };
 
-let u_username = AuthToken.split(':')[0];
-getRequestData("http://localhost/reimbursement/pending/u_username");
+async function accountInfo(){
+    var jsontext = await getRequestData("http://localhost/account");
+    
+    
+    var titleName = document.getElementById('emailTitle'); 
+    titleName.innerText  = jsontext.email;
+
+    var username = document.getElementById('username'); 
+    var password = document.getElementById('password');      
+    var firstname = document.getElementById('firstname');
+    var lastname = document.getElementById('lastname');
+    var email = document.getElementById('email');
+
+    username.value = jsontext.username;
+    password.value = jsontext.password;
+    firstname.value = jsontext.firstname;
+    lastname.value = jsontext.lastname;
+    email.value = jsontext.email;
+    
+
+};
+
+async function updateUserInfo() {
+    var username = document.getElementById('username'); 
+    var password = document.getElementById('password');      
+    var firstname = document.getElementById('firstname');
+    var lastname = document.getElementById('lastname');
+    var email = document.getElementById('email');
+    
+    
+    try {
+        let requestBody = `{"username" : "${username}" , "password" : "${password}"
+        , "firstname" : "${firstName}", "lastname" : "${lastname}"
+        , "email" : "${email}"}  `;
+        let response = await fetch("http://localhost/account", {method: 'put',
+        headers : {'authToken': AuthToken},   
+        body : requestBody       
+        });
+        if (response.status === 200) {
+            alert("Information Updated");
+            }
+            else {      
+            alert(response.status);
+            }
+        }
+        catch (err) {
+            alert("500");
+        };
+}
+
+
+
+//submit Reimbursement
+const btn = document.getElementById('submitreimb');
+if (btn != null){
+btn.addEventListener("click", submitReimb);
+};
+
+
+//pending
+const divPending = document.getElementById('pendingList');
+if (divPending != null){
+    viewPending();
+};
+
+
+
+//resolved
+const divResolved = document.getElementById('resolvedList');
+if (divResolved != null ){
+    viewResolved();
+};
+
+function getPendingReimbursements(){
+    let response = await fetch("http://localhost/reimbursement", {method: 'get',
+    headers : {'authToken': AuthToken},   
+    body : requestBody       
+    });
+    if (response.status === 200) {
+        alert("Retrieved Pending")
+        }
+        else {      
+        alert(response.status);
+        }
+    }
+    catch (err) {
+        alert("500");
+    };
+}
+

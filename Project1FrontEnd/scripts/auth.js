@@ -1,54 +1,49 @@
-document.getElementById("submitBtn").addEventListener("click", login);
-let api = "http://localhost:8080";
+const btn = document.getElementById('submitBtn');
 
-function login(){
-    document.getElementById("error").innerHTML = "";
+btn.addEventListener("click", auth);
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+async function auth() {
+let username = document.getElementById("username").value;
+let password = document.getElementById("password").value;     
+       let requestBody = `{"username" : "${username}" , "password" : "${password}"}`; 
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", `${api}/auth`);
+       let response = await fetch('http://localhost:8080/auth', {method: 'post',
+    //    headers : {'Content-Type': 'application/json'},  
+        headers : {'Content-Type' : 'application/x-www-form-urlencoded'},       
+       body : requestBody         
+       });
 
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState === 4 && xhr.status === 200){
+       let responsetext = await response.text();
+       if(response.status != 200){       
+       alert(responsetext);
+       }
+       else if(response.status === 200) {
+           console.log(response.headers);
+           console.log(response);
+          let authToken = response.headers.get('Authorization');
+          sessionStorage.setItem("token", authToken);
+          if (authToken.split(":")[1] === "1") {
+            window.location.replace("../views/employees.html");
+          } else{
+          window.location.replace("../views/managers.html");
+          }
+        // if (responsetext == 1){        
+        //     let authToken = response.headers.get('Authorization');
+        // }
+        // else {
             
-            let authToken = xhr.getResponseHeader("Authorization");
+        //     window.location.replace("views/manager.html");
+        // }
+       }
 
-            sessionStorage.setItem("token", authToken);
 
-            let tok = sessionStorage.getItem("token");
-    
-            if(tok.split(":")[1] === "2"){
-
-                window.location.href = "views/managers.html";
-            } else {
-                window.location.href="views/employees.html";
-            }
-            
-
-        } else if (xhr.readyState === 4){
-            // provide user with feedback of failure to login
-            document.getElementById("error").innerHTML = xhr.response;
-           }
-
-        }
-
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        let requestBody = `username=${username}&password=${password}`;
-
-        xhr.send(requestBody);
 }
 
 
-if(tok == null){
-    window.location.href = "views/index.html";
-}
 
-document.getElementById("logout").addEventListener('click', LogOut);
+// document.getElementById("logout").addEventListener('click', LogOut);
 
-function LogOut(){
-    sessionStorage.clear();
-    window.location.href = "views/index.html";
-}
+// function LogOut(){
+//     sessionStorage.clear();
+//     window.location.href = "views/index.html";
+// }

@@ -45,6 +45,20 @@
   </div>
 </nav>
 
+<div id="reimbursement-lookup"> 
+    <form id="login-form" onsubmit="return false;">
+        Search all reimbursements of any one employee
+        <div class="form-group">
+            <label for="authorId">Employee ID</label>
+            <input type="text" class="form-control" id="authorId" aria-describedby="authorIdHelp"
+            placeholder="Enter EmployeeId to search">
+        </div>
+        <button onclick="showReimbursementsOfOneEmployee()" class="btn btn-primary">Search</button>
+    </form>
+    <div id="error-div"></div>
+</div>
+<div id="main-content"></div>
+
 
 <footer>
   <script src="../scripts/employee.js"></script>

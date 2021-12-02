@@ -14,9 +14,11 @@ public class UserRole {
 	public UserRole(int id) {
 		switch(id) {
 		case 1:
+			roleId = 1;
 			role = "employee";
 			break;
 		case 2:
+			roleId = 2;
 			role = "manager";
 			break;
 		default:

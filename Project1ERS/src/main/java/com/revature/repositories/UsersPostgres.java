@@ -12,6 +12,7 @@ import com.revature.util.ConnectionUtil;
 
 public class UsersPostgres implements UsersDao {
 
+
 	@Override
 	public User getUserByUsername(String username) {
 		User u = null;
@@ -45,15 +46,16 @@ public class UsersPostgres implements UsersDao {
 
 	
 	
+//LOOK INTO!
 
 	@Override
-	public User viewMyInfo(String uname) {
+	public User viewMyInfo(String username) {
 		User u = null;
 		try {
 			Connection con = ConnectionUtil.getConnectionFromFile();
 			String sql = "select * from users where uname = ?;";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, uname);
+			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
@@ -84,7 +86,7 @@ public class UsersPostgres implements UsersDao {
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(1, u.getUname());
+			ps.setString(1, u.getUsername());
 			ps.setString(2, u.getPassword());
 			ps.setString(3, u.getFirstName());
 			ps.setString(4, u.getLastName());
@@ -134,6 +136,8 @@ public class UsersPostgres implements UsersDao {
 		
 		return u;
 	}
-	
+
+
+
 
 }
