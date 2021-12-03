@@ -109,7 +109,7 @@ async function getAllEmployees(){
             result += `<div>Company Email:  ${element.email}</div>`;
             result += `<div>First Name:  ${element.firstName}</div>`;
             result += `<div>Last Name:  ${element.lastName}</div>`;
-            result += `<div>Username:  ${element.Username}</div>`;
+            // result += `<div>Username:  ${element.Username}</div>`;
         }
 
         employees.innerHTML = result;

@@ -65,8 +65,6 @@ async function getResolvedReimbursements(){
         if (response.status === 201) {
             response = await response.json();
             console.log(response);
-            // console.log(response.json());
-            // alert("Retrieved Pending")
             let account = document.getElementById("account");
             let result = "";
             for (let i = 0; i < response.length; i++) {
