@@ -16,19 +16,22 @@ public class TestRedo
     
     //WRITE YOUR CODE BELOW HERE
 
-public static String getVowel(String s) {
+    public static String getVowel(String s) {
 
-    String vowels = ""; // String Passed is dog
+        String vowels = ""; // String Passed is dog
 
-
-     for (int i = 0; i < s.length(); i++){
-        if (s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u'){
-            vowels = vowels + s.charAt(i);
+        for (int i = 0; i < s.length(); i++){
+            if (s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u'){
+                vowels = vowels + s.charAt(i);
+            }
         }
-            }return vowels;
-
-        
-       }
+        if(vowels != ""){
+            return vowels;
+        }
+        else{
+            return "This has no vowels!";
+        }
+    }
         
     
 }
